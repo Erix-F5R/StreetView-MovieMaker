@@ -5,6 +5,7 @@ const morgan = require("morgan");
 const port = 4000;
 
 express()
+  .use(express.json())
   .use(helmet())
   .use(morgan("tiny"))
 
