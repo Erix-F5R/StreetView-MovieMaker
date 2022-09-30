@@ -3,9 +3,9 @@ import AuthNav from "./AuthNav";
 
 const App = () => {
 
-  const {isLoading} = useAuth0();
+  const {isLoading, user} = useAuth0();
 
-
+  console.log(user)
 
   if (isLoading){
     return <div>Loading...</div>
