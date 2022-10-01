@@ -1,5 +1,5 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import AuthNav from "./AuthNav";
+import AuthNav from "./auth/AuthNav";
 
 const App = () => {
 
