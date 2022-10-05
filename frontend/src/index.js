@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App";
+import App from "./pages/App";
 import Auth0ProviderWithHistory from './auth/auth0-provider-with-history';
 import { BrowserRouter } from "react-router-dom";
 

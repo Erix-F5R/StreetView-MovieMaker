@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import AuthNav from "./auth/AuthNav";
-import SignupButton from "./auth/SignupButton";
+import AuthNav from "../auth/AuthNav";
+import SignupButton from "../auth/SignupButton";
 import { useAuth0 } from "@auth0/auth0-react";
 
 const Header = () => {
