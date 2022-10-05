@@ -5,6 +5,8 @@ import OriginDestInput from "../components/OriginDestInput";
 import GeoCode from "../MapFlow/GeoCode";
 import { MapFlowContext } from "../MapFlow/MapFlowContext";
 
+import NewMap from "../components/NewMap";
+
 const NewTrip = () => {
   const {
     state: { origin, destination, status },
@@ -21,6 +23,10 @@ const NewTrip = () => {
     <>
       <div>New Trip</div>
       <OriginDestInput />
+
+      <NewMap/>
+
+
     </>
   );
 };
