@@ -6,8 +6,11 @@ export const initialState = {
   error: null,
   origin: "",
   destination: "",
-  geocodedOrigin: "",
-  geocodedDestination: "",
+  geocodedOrigin: [],
+  geocodedDestination: [],
+  country: "",
+  locality: "",
+  lable: "",
 };
 
 export const reducer = (state, action) => {
@@ -26,6 +29,9 @@ export const reducer = (state, action) => {
         status: "origin-dest-geocoded",
         geocodedOrigin: action.geocodedOrigin,
         geocodedDestination: action.geocodedDestination,
+        country: action.country,
+        locality: action.locality,
+        lable: action.label,
       };
     }
     default:

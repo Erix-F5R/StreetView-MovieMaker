@@ -7,6 +7,7 @@ export const MapFlowProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const receivedOriginDestination = (data) => {
+
     dispatch({
       type: "received-origin-destination",
       ...data,

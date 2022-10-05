@@ -8,7 +8,7 @@ import User from "./User";
 import Trip from "./Trip";
 import NewTrip from "./NewTrip";
 import AllTrips from "./AllTrips";
-import { MapFlowProvider } from "../reducers-contexts/MapFlowContext";
+import { MapFlowProvider } from "../MapFlow/MapFlowContext";
 
 const App = () => {
   const { isLoading, user } = useAuth0();
@@ -17,7 +17,7 @@ const App = () => {
     return <div>Loading...</div>;
   }
 
-  console.log(user);
+
 
   return (
     <>

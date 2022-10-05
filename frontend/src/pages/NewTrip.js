@@ -1,14 +1,21 @@
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
-import { useContext, useReducer } from "react";
-import { initialState, reducer, receivedOriginDestination, receivedGeocoding } from "../reducers-contexts/MapFlowReducer";
+import { useContext, useEffect } from "react";
+
 import OriginDestInput from "../components/OriginDestInput";
-import { MapFlowContext } from "../reducers-contexts/MapFlowContext";
+import GeoCode from "../MapFlow/GeoCode";
+import { MapFlowContext } from "../MapFlow/MapFlowContext";
 
 const NewTrip = () => {
+  const {
+    state: { origin, destination, status },
+    actions: { receivedGeocoding },
+  } = useContext(MapFlowContext);
 
-    const {state} = useContext(MapFlowContext)
-    console.log('a', state);
-
+  useEffect(() => {
+    if (status === "origin-dest-received") {
+      GeoCode(origin, destination).then((res) => receivedGeocoding(res));
+    }
+  }, [status]);
 
   return (
     <>
