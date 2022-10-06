@@ -8,6 +8,7 @@ import User from "./User";
 import Trip from "./Trip";
 import NewTrip from "./NewTrip";
 import AllTrips from "./AllTrips";
+import ModalTest from "./ModalTest";
 import { MapFlowProvider } from "../MapFlow/MapFlowContext";
 
 const App = () => {
@@ -36,6 +37,7 @@ const App = () => {
         />
 
         {/*Open*/}
+        <Route path="test" element={<ModalTest/>}/>
         <Route path="/" element={<Homepage />} />
         <Route path="/user/:userId" element={<User />} />
         <Route path="/trip/:tripId" element={<Trip />} />

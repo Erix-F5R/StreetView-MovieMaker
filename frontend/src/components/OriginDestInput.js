@@ -12,7 +12,7 @@ const OriginDestInput = (type) => {
 
     const submitInputs = (event) => {
         event.preventDefault();
-        receivedOriginDestination(originDestination)   
+        receivedOriginDestination(originDestination)
         
     }
 
