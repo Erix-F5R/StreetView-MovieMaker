@@ -8,7 +8,7 @@ import User from "./User";
 import Trip from "./Trip";
 import NewTrip from "./NewTrip";
 import AllTrips from "./AllTrips";
-import ModalTest from "./ModalTest";
+import ModalTest from "../modal/ModalTest";
 import { MapFlowProvider } from "../MapFlow/MapFlowContext";
 
 const App = () => {
