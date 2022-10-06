@@ -21,11 +21,19 @@ export const MapFlowProvider = ({ children }) => {
     });
   };
 
+  const receivedPath = (data) => {
+
+    dispatch({
+      type: "received-path",
+      ...data
+    })
+  }
+
   return (
     <MapFlowContext.Provider
       value={{
         state,
-        actions: { receivedOriginDestination, receivedGeocoding },
+        actions: { receivedOriginDestination, receivedGeocoding, receivedPath },
       }}
     >
       {children}

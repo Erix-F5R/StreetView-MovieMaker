@@ -6,11 +6,13 @@ export const initialState = {
   error: null,
   origin: "",
   destination: "",
-  geocodedOrigin: [],
-  geocodedDestination: [],
+  geocodedOrigin: {},
+  geocodedDestination: {},
   country: "",
   locality: "",
   lable: "",
+  pathBearing: [],
+  bbox: [],
 };
 
 export const reducer = (state, action) => {
@@ -33,6 +35,15 @@ export const reducer = (state, action) => {
         locality: action.locality,
         lable: action.label,
       };
+    }
+
+    case "received-path": {
+      return {
+        ...state,
+        status: "path-received",
+        pathBearing: action.pathBearing,
+        bbox: action.bbox,
+      }
     }
     default:
       throw new Error("Error in Map Flow.");

@@ -1,34 +1,39 @@
+import Geocode from "react-geocode";
+
 //This function received a plain text origin/destination and returns them as lat/lng
 //Calls the OpenRoutingService Geocoding API
-// Includes label info 
+// Includes label info
 const GeoCode = async (origin, destination) => {
 
-    const buildCall = (location) => {
-        const ORS_KEY =  process.env.REACT_APP_ORS_KEY;
-        const URI_Location = encodeURI(location)
-        return `https://api.openrouteservice.org/geocode/search?api_key=${ORS_KEY}&text=${URI_Location}`;        
-    }
+    //ORS PROVIDES Locality lable info, but unreliable for addresses
+  const buildCall = (location) => {
+    const ORS_KEY = process.env.REACT_APP_ORS_KEY;
+    const URI_Location = encodeURI(location);
+    return `https://api.openrouteservice.org/geocode/search?api_key=${ORS_KEY}&text=${URI_Location}`;
+  };
 
+  //Google works much better sadly
+  Geocode.setApiKey(process.env.REACT_APP_GOOGLE_KEY);
 
-    //Call Origin
-    const originRes = await fetch((buildCall(origin)))
-    const originData = await originRes.json()
+  //Get label info from ORS
+  const labelCall = await fetch(buildCall(origin));
+  const labelJson = await labelCall.json();
 
-    //Call Dest
-    const destinationRes = await fetch((buildCall(destination)))
-    const destinationData = await destinationRes.json();
+  //Call Origin
+  const originCall = await Geocode.fromAddress(origin);
+  
+  //Call Dest
+  const destinationCall = await Geocode.fromAddress(destination);
 
-    const promises = await Promise.all([originData, destinationData]);
+  const promises = await Promise.all([labelJson, originCall, destinationCall]);
 
-    return {
-        geocodedOrigin: promises[0].features[0].geometry.coordinates,
-        geocodedDestination: promises[1].features[0].geometry.coordinates,
-        country: promises[0].features[0].properties.country,
-        locality: promises[0].features[0].properties.locality,
-        label: promises[0].features[0].properties.label,
+  return {
+    geocodedOrigin: promises[1].results[0].geometry.location,
+    geocodedDestination: promises[2].results[0].geometry.location,
+    country: promises[0].features[0].properties.country,
+    locality: promises[0].features[0].properties.locality,
+    label: promises[0].features[0].properties.label,
+  };
+};
 
-    }
-
-}
-
-export default GeoCode
+export default GeoCode;

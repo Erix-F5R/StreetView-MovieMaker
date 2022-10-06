@@ -3,19 +3,32 @@ import { useContext, useEffect } from "react";
 
 import OriginDestInput from "../components/OriginDestInput";
 import GeoCode from "../MapFlow/GeoCode";
+import PathAndBearing from "../MapFlow/PathAndBearing";
 import { MapFlowContext } from "../MapFlow/MapFlowContext";
 
 import NewMap from "../components/NewMap";
 
 const NewTrip = () => {
   const {
-    state: { origin, destination, status },
-    actions: { receivedGeocoding },
+    state: { origin, destination, status, geocodedOrigin, geocodedDestination },
+    actions: { receivedGeocoding, receivedPath },
   } = useContext(MapFlowContext);
 
   useEffect(() => {
-    if (status === "origin-dest-received") {
-      GeoCode(origin, destination).then((res) => receivedGeocoding(res));
+    switch (status) {
+      case "origin-dest-received": {
+        GeoCode(origin, destination).then((res) => receivedGeocoding(res));
+        return;
+      }
+      case "origin-dest-geocoded": {
+        PathAndBearing(geocodedOrigin, geocodedDestination).then((res) =>
+          receivedPath(res)
+        );
+        return;
+      }
+      case "path-received":{
+        return;
+      }
     }
   }, [status]);
 
@@ -23,10 +36,7 @@ const NewTrip = () => {
     <>
       <div>New Trip</div>
       <OriginDestInput />
-
-      <NewMap/>
-
-
+      <NewMap />
     </>
   );
 };
