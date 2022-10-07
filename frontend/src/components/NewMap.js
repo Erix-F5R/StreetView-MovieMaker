@@ -2,6 +2,7 @@ import { MapContainer, TileLayer, Polyline } from "react-leaflet";
 import styled from "styled-components";
 import { useContext, useEffect, useState } from "react";
 import { MapFlowContext } from "../MapFlow/MapFlowContext";
+import MapPrint from "../MapFlow/MapPrint";
 
 const NewMap = () => {
   const [box, setBox] = useState([
@@ -9,6 +10,8 @@ const NewMap = () => {
     [45.40723, -73.22442],
   ]);
   const [polyLine, setPolyLine] = useState();
+
+
 
   const {
     state: { status, bbox, pathBearing },
@@ -30,6 +33,9 @@ const NewMap = () => {
       {polyLine && (
         <Polyline pathOptions={{ color: "red" }} positions={polyLine} />
       )}
+      <MapPrint position="topleft" sizeModes={['Current', 'A4Portrait', 'A4Landscape']} hideControlContainer={false} title="Print" />
+      <MapPrint position="topleft" sizeModes={['Current', 'A4Portrait', 'A4Landscape']} hideControlContainer={false} title="Export as PNG" exportOnly />
+
     </StyledMap>
   );
 };
