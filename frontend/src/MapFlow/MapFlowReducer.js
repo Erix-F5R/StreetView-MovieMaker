@@ -46,10 +46,7 @@ export const reducer = (state, action) => {
       }
     }
 
-    case "launch-modal":{
-      console.log('launch modal')
-      return{...state}
-    }
+
     default:
       throw new Error("Error in Map Flow.");
   }

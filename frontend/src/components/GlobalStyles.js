@@ -6,6 +6,7 @@ export default createGlobalStyle`
 :root {
 --color-main: #68B684;
 --color-dark: #16697A;
+--color-dark-disabled: #56747a;
 
 --font-family: 'Source Sans Pro', sans-serif;
 --header-size: 36px;

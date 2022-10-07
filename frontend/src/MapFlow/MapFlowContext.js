@@ -29,15 +29,12 @@ export const MapFlowProvider = ({ children }) => {
     })
   }
 
-  const launchModal = () => {
-    dispatch({type: "launch-modal"})
-  }
 
   return (
     <MapFlowContext.Provider
       value={{
         state,
-        actions: { receivedOriginDestination, receivedGeocoding, receivedPath, launchModal },
+        actions: { receivedOriginDestination, receivedGeocoding, receivedPath },
       }}
     >
       {children}

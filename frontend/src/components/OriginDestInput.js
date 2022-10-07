@@ -1,12 +1,15 @@
 import styled from "styled-components";
 import { useState, useContext } from "react";
 import { MapFlowContext } from "../MapFlow/MapFlowContext";
-import {FiPlay} from "react-icons/fi"
+import CircularProgress from "@mui/material/CircularProgress";
 
-const OriginDestInput = (type) => {
+import { FiPlay } from "react-icons/fi";
+
+const OriginDestInput = ({ dispatch }) => {
   const [originDestination, setOriginDestination] = useState({});
   const {
-    actions: { receivedOriginDestination , launchModal },
+    state: { status },
+    actions: { receivedOriginDestination },
   } = useContext(MapFlowContext);
 
   const handleChange = (key, val) => {
@@ -20,6 +23,7 @@ const OriginDestInput = (type) => {
 
   return (
     <Container>
+  
       <InputWrapper>
         <Input
           type="text"
@@ -33,15 +37,19 @@ const OriginDestInput = (type) => {
         />
       </InputWrapper>
       <ButtonWrapper>
-        <Button onClick={submitInputs}>Go!</Button>
-        <ButtonPlay onClick={ () => launchModal()}>View Trip <FiPlay/></ButtonPlay>
+        <Button onClick={submitInputs}>{status === 'idle' || status === 'path-received'? 'Go' : <CircularProgress/>}</Button>
+        <ButtonPlay
+          onClick={() => dispatch({ type: "open-video" })}
+          disabled={status !== "path-received"}
+        >
+          View Trip <FiPlay />
+        </ButtonPlay>
       </ButtonWrapper>
     </Container>
   );
 };
 
 const Container = styled.div`
-
   display: flex;
   justify-content: center;
   margin: 10px;
@@ -49,6 +57,7 @@ const Container = styled.div`
 
 const ButtonWrapper = styled.div`
   display: flex;
+  padding-top: 5px;
 `;
 
 const InputWrapper = styled.div``;
@@ -64,7 +73,7 @@ const Input = styled.input`
 `;
 
 const Button = styled.button`
-  padding: 5px;
+  padding: 4px 8px;
   margin-left: 12px;
   min-width: 64px;
   display: flex;
@@ -92,12 +101,17 @@ const Button = styled.button`
 const ButtonPlay = styled(Button)`
   background: var(--color-dark);
   border: 1px solid var(--color-dark);
+  padding-left: 10px;
 
-  &:hover {
+  &:disabled {
+    background: var(--color-dark-disabled);
+    color: lightgrey;
+  }
+
+  &:hover:enabled {
     color: var(--color-main);
     border: 1px double var(--color-main);
   }
-
 `;
 
 export default OriginDestInput;
