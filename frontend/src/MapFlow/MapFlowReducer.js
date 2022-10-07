@@ -10,7 +10,7 @@ export const initialState = {
   geocodedDestination: {},
   country: "",
   locality: "",
-  lable: "",
+  label: "",
   pathBearing: [],
   bbox: [],
 };
@@ -33,7 +33,7 @@ export const reducer = (state, action) => {
         geocodedDestination: action.geocodedDestination,
         country: action.country,
         locality: action.locality,
-        lable: action.label,
+        label: action.label,
       };
     }
 
@@ -44,6 +44,11 @@ export const reducer = (state, action) => {
         pathBearing: action.pathBearing,
         bbox: action.bbox,
       }
+    }
+
+    case "launch-modal":{
+      console.log('launch modal')
+      return{...state}
     }
     default:
       throw new Error("Error in Map Flow.");

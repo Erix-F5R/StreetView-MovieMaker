@@ -1,13 +1,21 @@
+//This reducer manages which of the two modals is open
+//Along with Pause/Play/Reset
+//and collects form data
 export const initialState = {
   openVideo: false,
   frame: 0,
   playPauseReset: "Play",
   openRate: false,
-  formData: { city: 'Toronto'},
+  formData: {},
 };
 
 export const reducer = (state, action) => {
   switch (action.type) {
+
+    case "init-formData": {
+         return { ...state, formData: { ...state.formData, ...action.data } };
+    }
+
     case "open-video": {
       return { ...state, openVideo: true };
     }
@@ -48,7 +56,6 @@ export const reducer = (state, action) => {
     }
 
     case "form-change": {
-      console.log(state.formData);
       return { ...state, formData: { ...state.formData, ...action.input } };
     }
   }

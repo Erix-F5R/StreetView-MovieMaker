@@ -5,8 +5,8 @@ import { MapFlowContext } from "../MapFlow/MapFlowContext";
 
 const NewMap = () => {
   const [box, setBox] = useState([
-    [45.524049, -73.60648],
-    [45.525551, -73.602441],
+    [45.67223, -74.08959],
+    [45.40723, -73.22442],
   ]);
   const [polyLine, setPolyLine] = useState();
 
@@ -22,7 +22,7 @@ const NewMap = () => {
   }, [status]);
 
   return (
-    <MC key={JSON.stringify(box)} bounds={box} scrollWheelZoom={false}>
+    <StyledMap key={JSON.stringify(box)} bounds={box} scrollWheelZoom={false}>
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -30,12 +30,12 @@ const NewMap = () => {
       {polyLine && (
         <Polyline pathOptions={{ color: "red" }} positions={polyLine} />
       )}
-    </MC>
+    </StyledMap>
   );
 };
 
-const MC = styled(MapContainer)`
-  height: 500px;
+const StyledMap = styled(MapContainer)`
+  height: 400px;
   width: 800px;
 `;
 
