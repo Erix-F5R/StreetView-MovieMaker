@@ -37,10 +37,10 @@ const OriginDestInput = ({ dispatch }) => {
         />
       </InputWrapper>
       <ButtonWrapper>
-        <Button onClick={submitInputs}>{status === 'idle' || status === 'path-received'? 'Go' : <CircularProgress/>}</Button>
+        <Button onClick={submitInputs}>{status === 'idle' || status === 'save' || status === 'path-received'? 'Go' : <CircularProgress/>}</Button>
         <ButtonPlay
           onClick={() => dispatch({ type: "open-video" })}
-          disabled={status !== "path-received"}
+          disabled={status !== "path-received" && status !== 'save'}
         >
           View Trip <FiPlay />
         </ButtonPlay>

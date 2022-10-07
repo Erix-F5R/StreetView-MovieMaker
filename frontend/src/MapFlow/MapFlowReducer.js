@@ -46,6 +46,12 @@ export const reducer = (state, action) => {
       }
     }
 
+    case "save": {
+      return{
+        ...state,
+        status: "save"
+      }
+    }
 
     default:
       throw new Error("Error in Map Flow.");

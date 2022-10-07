@@ -29,12 +29,16 @@ export const MapFlowProvider = ({ children }) => {
     })
   }
 
+  const saveTrip = (data) => {
+
+    dispatch({type: 'save', ...data})
+  }
 
   return (
     <MapFlowContext.Provider
       value={{
         state,
-        actions: { receivedOriginDestination, receivedGeocoding, receivedPath },
+        actions: { receivedOriginDestination, receivedGeocoding, receivedPath, saveTrip },
       }}
     >
       {children}

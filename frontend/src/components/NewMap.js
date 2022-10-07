@@ -33,9 +33,7 @@ const NewMap = () => {
       {polyLine && (
         <Polyline pathOptions={{ color: "red" }} positions={polyLine} />
       )}
-      <MapPrint position="topleft" sizeModes={['Current', 'A4Portrait', 'A4Landscape']} hideControlContainer={false} title="Print" />
-      <MapPrint position="topleft" sizeModes={['Current', 'A4Portrait', 'A4Landscape']} hideControlContainer={false} title="Export as PNG" exportOnly />
-
+      <MapPrint status={status}  exportOnly />
     </StyledMap>
   );
 };

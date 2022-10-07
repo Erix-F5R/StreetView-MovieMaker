@@ -15,7 +15,7 @@ const ModalTrip = ({state, dispatch}) => {
 
   const {
     state: { status, country, locality, label, pathBearing },
-    actions: {},
+    actions: {saveTrip},
   } = useContext(MapFlowContext);
 
   const [images, setImages] = useState([])
@@ -199,7 +199,7 @@ const ModalTrip = ({state, dispatch}) => {
                 value="Save!"
                 onClick={(e) => {
                   e.preventDefault();
-                  window.alert("Saved to Account");
+                  saveTrip();
                 }}
               />
             </Label>
