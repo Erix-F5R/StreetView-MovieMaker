@@ -11,7 +11,19 @@ import ModalTrip from "../modal/ModalTrip";
 
 const NewTrip = () => {
   const {
-    state: { origin, destination, status, geocodedOrigin, geocodedDestination },
+    state: {
+      origin,
+      destination,
+      status,
+      geocodedOrigin,
+      geocodedDestination,
+      author,
+      pathBearing,
+      bbox,
+      imgName,
+      distance,
+      formData,
+    },
     actions: { receivedGeocoding, receivedPath },
   } = useContext(MapFlowContext);
 
@@ -33,6 +45,29 @@ const NewTrip = () => {
       }
       case "path-received": {
         return;
+      }
+
+      //   author: "633cd0988daa3300119248db",
+      //   pathBearing: state.pathBearing,
+      //   bbox: state.bbox,
+      //   imgName: state.imgName,
+      //   distance: state.distance,
+      //   formData: action.formData,
+      case "save": {
+        fetch("/add-trip", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            author,
+            pathBearing,
+            bbox,
+            imgName,
+            distance,
+            formData,
+          }),
+        });
       }
     }
   }, [status]);

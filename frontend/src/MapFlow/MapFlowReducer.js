@@ -15,8 +15,8 @@ export const initialState = {
   //Return to Backend
   pathBearing: [],
   bbox: [],
-  imgName: uuidv4(),
-  //formData: {}, form data doesn't need to be saved, it is posted imediately then the flow ends
+  imgName: "",
+  formData: {},
   distance: 0,
 };
 
@@ -26,6 +26,7 @@ export const reducer = (state, action) => {
     case "received-origin-destination": {
       return {
         ...state,
+        imgName: uuidv4(),
         status: "origin-dest-received",
         origin: action.origin,
         destination: action.destination,
@@ -55,29 +56,30 @@ export const reducer = (state, action) => {
       };
     }
 
-
     case "save": {
-      const data = {
-        author: "633cd0988daa3300119248db",
-        pathBearing: state.pathBearing,
-        bbox: state.bbox,
-        imgName: state.imgName,
-        distance: state.distance,
-        formData: action.formData,
-      };
+      // const data = {
+      //   author: "633cd0988daa3300119248db",
+      //   pathBearing: state.pathBearing,
+      //   bbox: state.bbox,
+      //   imgName: state.imgName,
+      //   distance: state.distance,
+      //   formData: action.formData,
+      // };
 
       //useReducer appears to dispatch twice out of the box.
       //As a work around I'll check if the trip exists on the backend
-     fetch("/add-trip", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ ...data }),
-      })
+      //  fetch("/add-trip", {
+      //     method: "POST",
+      //     headers: {
+      //       "Content-Type": "application/json",
+      //     },
+      //     body: JSON.stringify({ ...data }),
+      //   })
 
       return {
         ...state,
+        author: "633cd0988daa3300119248db",
+        formData: action.formData,
         status: "save",
       };
     }
