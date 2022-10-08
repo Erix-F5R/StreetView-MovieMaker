@@ -1,5 +1,5 @@
-
 //This reducer manages the states involed in the data flow from user input to final map view
+import { v4 as uuidv4 } from "uuid";
 
 export const initialState = {
   status: "idle",
@@ -11,12 +11,19 @@ export const initialState = {
   country: "",
   locality: "",
   label: "",
+  posted: true,
+
+  //Return to Backend
   pathBearing: [],
   bbox: [],
+  imgName: uuidv4(),
+  //formData: {}, form data doesn't need to be saved, it is posted imediately then the flow ends
+  distance: 0,
 };
 
 export const reducer = (state, action) => {
   switch (action.type) {
+    //Received user inputs
     case "received-origin-destination": {
       return {
         ...state,
@@ -25,6 +32,7 @@ export const reducer = (state, action) => {
         destination: action.destination,
       };
     }
+    //Converted input to lat/lng
     case "geocoded": {
       return {
         ...state,
@@ -37,27 +45,44 @@ export const reducer = (state, action) => {
       };
     }
 
+    //Route the path
     case "received-path": {
       return {
         ...state,
         status: "path-received",
         pathBearing: action.pathBearing,
         bbox: action.bbox,
-      }
+        distance: action.distance,
+      };
     }
 
     case "save": {
-      return{
+      const data = {
+        author: "633cd0988daa3300119248db",
+        pathBearing: state.pathBearing,
+        bbox: state.bbox,
+        imgName: state.imgName,
+        distance: state.distance,
+        formData: action.formData,
+      };
+
+      //Add Error handling?
+      state.posted && fetch("/add-trip", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ ...data }),
+      }).then((res) => console.log(res));
+
+      return {
         ...state,
-        status: "save"
-      }
+        posted:false,
+        status: "save",
+      };
     }
 
     default:
       throw new Error("Error in Map Flow.");
   }
 };
-
-
-  
-  

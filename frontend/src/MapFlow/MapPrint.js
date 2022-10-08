@@ -15,7 +15,7 @@ const MapPrint = (props) => {
 
   useEffect(() => {
     if (props.status === "save") {
-      printPlugin.printMap("CurrentSize", "TestC");
+      printPlugin.printMap("CurrentSize", `${props.imgName}`);
     }
   }, [props.status]);
 

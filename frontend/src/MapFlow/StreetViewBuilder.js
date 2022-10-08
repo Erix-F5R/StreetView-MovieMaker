@@ -1,7 +1,7 @@
 const StreetViewBuilder = (pathArray) => {
 
     //Limit to protect api calls
-    const LIMIT = pathArray.length > 25 ? 25 : pathArray.length ; 
+    const LIMIT = pathArray.length > 5 ? 5 : pathArray.length ; 
     const KEY = process.env.REACT_APP_GOOGLE_KEY;
 
     const buildURL = (lat, lng, bearing) => {
@@ -11,7 +11,6 @@ const StreetViewBuilder = (pathArray) => {
     const imageArray = pathArray.map( step => buildURL(step.lat, step.lng,step.bearing));   
     const returnAr = imageArray.slice(0,LIMIT)
 
-    console.log(returnAr)
 
     return returnAr
 }

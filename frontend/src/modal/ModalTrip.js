@@ -41,21 +41,6 @@ const ModalTrip = ({state, dispatch}) => {
   };
 
 
-  //  const images = [
-  //    "streetview.jpeg",
-  //    "1.jpg",
-  //    "2.jpg",
-  // //   "3.jpg",
-  // //   "4.jpg",
-  // //   "5.jpg",
-  // //   "6.jpg",
-  // //   "7.jpg",
-  // //   "8.jpg",
-  // //   "9.jpg",
-  // //   "10.jpg",
-  // //   "11.jpg",
-  // //   "12.jpg",
-  //  ];
 
   //Google won't allow saving their images so the movie is faked using intervals
   //setInterval behaves irregularly with react
@@ -73,7 +58,7 @@ const ModalTrip = ({state, dispatch}) => {
   return (
     <>
 
-      {/* First Modal */}
+      {/* First Modal (Movie)*/}
       <Modal
         open={state.openVideo}
         onClose={() => dispatch({ type: "close-video" })}
@@ -105,7 +90,7 @@ const ModalTrip = ({state, dispatch}) => {
         </Container>
       </Modal>
 
-      {/* Second Modal */}
+      {/* Second Modal (Form)*/}
       <Modal
         open={state.openRate}
         onClose={() => dispatch({ type: "close-rate" })}
@@ -199,7 +184,7 @@ const ModalTrip = ({state, dispatch}) => {
                 value="Save!"
                 onClick={(e) => {
                   e.preventDefault();
-                  saveTrip();
+                  saveTrip(state.formData);
                 }}
               />
             </Label>

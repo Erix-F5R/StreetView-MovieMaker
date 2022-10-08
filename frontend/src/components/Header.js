@@ -7,6 +7,9 @@ import { useAuth0 } from "@auth0/auth0-react";
 const Header = () => {
   const { isLoading, user } = useAuth0();
 
+  //Auth0 user
+  // console.log(user.sub.split('|')[1])
+
   return (
     <Wrapper>
       <Home to={"/"}>Route+Viewer</Home>

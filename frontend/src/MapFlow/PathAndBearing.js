@@ -65,9 +65,10 @@ const PathAndBearing = async (geoOrigin, geoDestination) => {
   const bbox = geoResp.features[0].bbox;
   const returnBbox = [[bbox[1],bbox[0]],[bbox[3],bbox[2]]]
 
-  returnArray.push(lastElement);
+  //unpack distance in meters
+  const distance = geoResp.features[0].properties.summary.distance;  
 
-  return { pathBearing: returnArray, bbox: returnBbox};
+  return { pathBearing: returnArray, bbox: returnBbox, distance: distance};
 };
 
 export default PathAndBearing;

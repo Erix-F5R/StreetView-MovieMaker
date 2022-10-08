@@ -14,7 +14,7 @@ const NewMap = () => {
 
 
   const {
-    state: { status, bbox, pathBearing },
+    state: { status, bbox, pathBearing, imgName },
   } = useContext(MapFlowContext);
 
   useEffect(() => {
@@ -31,9 +31,9 @@ const NewMap = () => {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
       {polyLine && (
-        <Polyline pathOptions={{ color: "red" }} positions={polyLine} />
+        <Polyline pathOptions={{ color: "red" }}   positions={polyLine} />
       )}
-      <MapPrint status={status}  exportOnly />
+      <MapPrint status={status} imgName={imgName} exportOnly />
     </StyledMap>
   );
 };

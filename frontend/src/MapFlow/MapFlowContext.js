@@ -31,7 +31,7 @@ export const MapFlowProvider = ({ children }) => {
 
   const saveTrip = (data) => {
 
-    dispatch({type: 'save', ...data})
+    dispatch({type: 'save', formData: data})
   }
 
   return (
