@@ -56,7 +56,8 @@ const getAllTrips = async (req,res) => {
 
 const getTrip = async (req, res) => {
   const client = new MongoClient(MONGO_URI, options);
-  const trip = req.params.tripId;
+  const trip = ObjectId(req.params.tripId);
+
   try {
     await client.connect();
     const db = client.db("db-name");
