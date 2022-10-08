@@ -10,7 +10,7 @@ const {
 } = require("./handlers/userHandlers");
 
 const {
-  postTrip,
+  postTrip, getAllTrips,
 } = require("./handlers/tripHandlers")
  
 express()
@@ -31,6 +31,7 @@ express()
 
 //Why does the trip object look like?
   .post('/add-trip', postTrip)
+  .get('/trips', getAllTrips)
 //   .delete('/delete-trip/:trip', deleteTrip)
 
 

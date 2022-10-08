@@ -11,7 +11,6 @@ export const initialState = {
   country: "",
   locality: "",
   label: "",
-  posted: true,
 
   //Return to Backend
   pathBearing: [],
@@ -56,6 +55,7 @@ export const reducer = (state, action) => {
       };
     }
 
+
     case "save": {
       const data = {
         author: "633cd0988daa3300119248db",
@@ -66,18 +66,18 @@ export const reducer = (state, action) => {
         formData: action.formData,
       };
 
-      //Add Error handling?
-      state.posted && fetch("/add-trip", {
+      //useReducer appears to dispatch twice out of the box.
+      //As a work around I'll check if the trip exists on the backend
+     fetch("/add-trip", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({ ...data }),
-      }).then((res) => console.log(res));
+      })
 
       return {
         ...state,
-        posted:false,
         status: "save",
       };
     }
