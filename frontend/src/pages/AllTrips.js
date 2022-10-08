@@ -18,6 +18,7 @@ const AllTrips = () => {
 
 const Wrapper = styled.div`
   display: flex;
+  flex-wrap: wrap;
 `;
 
 export default AllTrips;

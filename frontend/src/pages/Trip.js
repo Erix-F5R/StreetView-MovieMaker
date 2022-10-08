@@ -14,7 +14,7 @@ const Trip = () => {
   }, []);
 
   return (
-    <>
+    <Center>
       {trip ? (
         <Container>
           <HeaderWrapper>
@@ -37,9 +37,15 @@ const Trip = () => {
       ) : (
         "Loading..."
       )}
-    </>
+    </Center>
   );
 };
+
+const Center = styled.div`
+    display: flex;
+    justify-content: center;
+
+`;
 
 const HeaderWrapper = styled.div`
   display: flex;
@@ -74,6 +80,7 @@ const Container = styled.div`
   border: 3px solid var(--color-main);
   border-image: 0;
   transition: color 0.5s;
+
 
   ${
     "" /* &:hover {
