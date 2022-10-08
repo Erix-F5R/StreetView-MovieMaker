@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import TripTile from "../components/TripTile";
-
+import styled from "styled-components";
 const AllTrips = () => {
   
   const [trips, setTrips] = useState([])
@@ -9,11 +9,15 @@ const AllTrips = () => {
     fetch('/trips').then(res => res.json()).then((data) => setTrips(data.data))
   }, [])
 
-  return (<div>
+  return (<Wrapper>
 
     { trips.length ? trips.map( (trip) => <TripTile key={trip._id} trip={trip}/>) : "loading..." }
 
-  </div>);
+  </Wrapper>);
 };
+
+const Wrapper = styled.div`
+  display: flex;
+`;
 
 export default AllTrips;
