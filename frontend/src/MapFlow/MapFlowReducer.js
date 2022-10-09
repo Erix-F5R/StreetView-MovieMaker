@@ -1,5 +1,7 @@
 //This reducer manages the states involed in the data flow from user input to final map view
 import { v4 as uuidv4 } from "uuid";
+import { CurrentUserContext } from "../components/CurrentUserContext";  
+
 
 export const initialState = {
   status: "idle",
@@ -24,6 +26,7 @@ export const reducer = (state, action) => {
   switch (action.type) {
     //Received user inputs
     case "received-origin-destination": {
+
       return {
         ...state,
         imgName: uuidv4(),
@@ -37,6 +40,7 @@ export const reducer = (state, action) => {
       return {
         ...state,
         status: "origin-dest-geocoded",
+        author: action.author,
         geocodedOrigin: action.geocodedOrigin,
         geocodedDestination: action.geocodedDestination,
         country: action.country,
@@ -60,7 +64,6 @@ export const reducer = (state, action) => {
 
       return {
         ...state,
-        author: "633cd0988daa3300119248db",
         formData: action.formData,
         status: "save",
       };

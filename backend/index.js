@@ -10,7 +10,7 @@ const {
 } = require("./handlers/userHandlers");
 
 const {
-  postTrip, getAllTrips, getTrip
+  postTrip, getAllTrips, getTrip,getTripsByAuthor, getFavoriteTrips
 } = require("./handlers/tripHandlers")
  
 express()
@@ -22,6 +22,7 @@ express()
 //User Collection
   .get('/profile/:myId', getProfile)
   .get('/user/:user' , getUser)
+  
 //   .patch('/favorite/:trip', favoriteTrip)
 //   .patch('/unfavorite/:trip', unfavoriteTrip)
   
@@ -33,6 +34,8 @@ express()
   .post('/add-trip', postTrip)
   .get('/trips', getAllTrips)
   .get('/trip/:tripId' , getTrip)
+  .get('/trips-by-author/:authorId', getTripsByAuthor)
+  .get('/favorite-trips/:userId', getFavoriteTrips)
 //   .delete('/delete-trip/:trip', deleteTrip)
 
 

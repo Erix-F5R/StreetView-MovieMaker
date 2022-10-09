@@ -8,6 +8,7 @@ import styled from "styled-components";
 import { initialState, reducer } from "../modal/ModalReducer";
 import NewMap from "../components/NewMap";
 import ModalTrip from "../modal/ModalTrip";
+import { CurrentUserContext } from "../components/CurrentUserContext";
 
 const NewTrip = () => {
   const {
@@ -31,10 +32,14 @@ const NewTrip = () => {
   //A little tasteful prop drilling
   const [state, dispatch] = useReducer(reducer, initialState);
 
+  const user = useContext(CurrentUserContext)
+
+
   useEffect(() => {
     switch (status) {
       case "origin-dest-received": {
-        GeoCode(origin, destination).then((res) => receivedGeocoding(res));
+        console.log(user._id)
+        GeoCode(origin, destination).then((res) => receivedGeocoding({...res, author: user._id }));
         return;
       }
       case "origin-dest-geocoded": {
