@@ -4,11 +4,16 @@ const TripTile = ({ trip }) => {
   //The Thumbnails saved have a transparent padding of variable size
   //This is an un resolved bug in leaflet-easyprint
 
+  const navToProfile = (ev) => {
+    ev.preventDefault();
+    window.alert('Hello World')
+  }
+
   return (
     <Container>
-      <Linky to={`${trip._id}`}>
+
         <Label>{trip.formData.label} </Label>
-        <Author>by {"pacific"}</Author>
+        <Author onClick={(ev) => navToProfile(ev)}>by {trip.author}</Author>
 
       <Difficulty>
         Rated: {trip.formData.difficulty} <Span>({Math.floor(trip.distance/100)/10} km)</Span>
@@ -21,7 +26,6 @@ const TripTile = ({ trip }) => {
           src={require("../assets/thumbnails/" + `${trip.imgName}` + ".png")}
         />
       </ImgWrapper>
-      </Linky>
     </Container>
   );
 };
@@ -60,9 +64,18 @@ const Label = styled.div`
   font-size: 20px;
   font-weight: bold;
   margin-top: 25px;
+  padding-right: 20px;
 `;
 const Author = styled.div`
  color: var(--color-main);
+ transition: color 0.5s;
+ cursor: pointer;
+
+ &:hover {
+    color: var(--color-dark);
+
+  }
+
 `;
 
 const Difficulty = styled.div`

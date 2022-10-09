@@ -88,7 +88,7 @@ const getFavoriteTrips = async (req, res) => {
 
 const getTrip = async (req, res) => {
   const client = new MongoClient(MONGO_URI, options);
-  const trip = ObjectId(req.params.tripId);
+  const trip = req.params.tripId;
 
   try {
     await client.connect();

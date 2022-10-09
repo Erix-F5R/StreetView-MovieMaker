@@ -1,13 +1,28 @@
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { CurrentUserContext } from "../components/CurrentUserContext";
-
+import TripTile from "../components/TripTile"
 
 const Profile = () => {
   const userPic = useAuth0().user.picture;
+  //I'm not using a reducer because for the most part my states aren't dependant on one another
   const user = useContext(CurrentUserContext);
+  const [myTrips, setMyTrips] = useState();
+  const [favoriteTrips, setFavoriteTrips] = useState();
 
+  useEffect(() => {
+
+
+    if (user._id) {
+      fetch(`/trips-by-author/${user._id}`)
+        .then((res) => res.json())
+        .then((data) => setMyTrips(data.data));
+      fetch(`/favorite-trips/${user._id}`)
+        .then((res) => res.json())
+        .then((data) => setFavoriteTrips(data.data));
+    }
+  }, [user]);
 
   return (
     <div>
@@ -19,7 +34,14 @@ const Profile = () => {
             <Email>{user.email}</Email>
             <Location>{user.location}</Location>
           </ProfileCard>
-          <TripContainer>Trips</TripContainer>
+          <TripContainer>
+          <MyTrips>MyTrips
+          { myTrips ? myTrips.map( (trip) => <TripTile key={trip._id} trip={trip}/>) : "loading..." }
+          </MyTrips>
+          <FavoriteTrips>Favorite Trips
+          { favoriteTrips ? favoriteTrips.map( (trip) => <TripTile key={trip._id} trip={trip}/>) : "loading..." }
+          </FavoriteTrips>
+          </TripContainer>
         </Container>
       )}
     </div>
@@ -43,3 +65,11 @@ const Location = styled.div``;
 const ProfileCard = styled.div``;
 
 const TripContainer = styled.div``;
+const MyTrips = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+`;
+const FavoriteTrips = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+`;
