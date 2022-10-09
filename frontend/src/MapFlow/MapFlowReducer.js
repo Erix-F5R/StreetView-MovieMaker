@@ -57,24 +57,6 @@ export const reducer = (state, action) => {
     }
 
     case "save": {
-      // const data = {
-      //   author: "633cd0988daa3300119248db",
-      //   pathBearing: state.pathBearing,
-      //   bbox: state.bbox,
-      //   imgName: state.imgName,
-      //   distance: state.distance,
-      //   formData: action.formData,
-      // };
-
-      //useReducer appears to dispatch twice out of the box.
-      //As a work around I'll check if the trip exists on the backend
-      //  fetch("/add-trip", {
-      //     method: "POST",
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //     },
-      //     body: JSON.stringify({ ...data }),
-      //   })
 
       return {
         ...state,

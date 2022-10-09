@@ -47,12 +47,6 @@ const NewTrip = () => {
         return;
       }
 
-      //   author: "633cd0988daa3300119248db",
-      //   pathBearing: state.pathBearing,
-      //   bbox: state.bbox,
-      //   imgName: state.imgName,
-      //   distance: state.distance,
-      //   formData: action.formData,
       case "save": {
         fetch("/add-trip", {
           method: "POST",

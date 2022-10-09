@@ -59,6 +59,7 @@ const InfoWrapper = styled.div`
 const NotesWrapper = styled.div`
     font-size: 24px;
     flex-grow: 1;
+    padding-top: 15px;
     display: flex;
     flex-direction: column;
 `;
@@ -80,6 +81,7 @@ const Container = styled.div`
   border: 3px solid var(--color-main);
   border-image: 0;
   transition: color 0.5s;
+  max-width: 70%;
 
 
   ${
