@@ -33,7 +33,7 @@ const postTrip = async (req, res) => {
         .collection("trips")
         .insertOne({ _id: tripId, ...trip, favoritedBy: [] });
 
-      res.status(201).json({ status: 201, data: result });
+      res.status(201).json({ status: 201, tripId: tripId });
     } else {
       res.status(500).json({ status: 500, message: "Trip exists" });
     }

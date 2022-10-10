@@ -2,10 +2,11 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import AuthNav from "../auth/AuthNav";
 import SignupButton from "../auth/SignupButton";
-import { useAuth0 } from "@auth0/auth0-react";
+import { useContext } from "react";
+import { CurrentUserContext } from "./CurrentUserContext";
 
 const Header = () => {
-  const { isLoading, user } = useAuth0();
+  const user = useContext(CurrentUserContext);
 
 
   return (
@@ -13,7 +14,7 @@ const Header = () => {
       <Home to={"/"}>Route+Viewer</Home>
       <Click to={"/new-trip"}>+ New Trip</Click>
       <Click to={"/all-trips"}>All Trips</Click>
-      {user ? <Click to={"/profile"}>{user.nickname}</Click> : <SignupButton />}
+      {user ? <Click to={"/profile"}>{user.username}</Click> : <SignupButton />}
       <AuthNav />
     </Wrapper>
   );

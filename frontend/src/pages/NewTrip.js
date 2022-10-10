@@ -9,6 +9,7 @@ import { initialState, reducer } from "../modal/ModalReducer";
 import NewMap from "../components/NewMap";
 import ModalTrip from "../modal/ModalTrip";
 import { CurrentUserContext } from "../components/CurrentUserContext";
+import { useNavigate } from "react-router-dom";
 
 const NewTrip = () => {
   const {
@@ -33,11 +34,11 @@ const NewTrip = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const user = useContext(CurrentUserContext);
+  const nav = useNavigate();
 
   useEffect(() => {
     switch (status) {
       case "origin-dest-received": {
-
         GeoCode(origin, destination).then((res) =>
           receivedGeocoding({
             ...res,
@@ -72,7 +73,9 @@ const NewTrip = () => {
             distance,
             formData,
           }),
-        });
+        })
+          .then((res) => res.json())
+          .then((data) => nav(`/trips/${data.tripId}`));
       }
     }
   }, [status]);

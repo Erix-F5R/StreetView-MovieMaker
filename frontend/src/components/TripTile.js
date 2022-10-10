@@ -29,6 +29,7 @@ const TripTile = ({ trip, myTrip }) => {
   const navToAllTrips = (ev, key, value) => {
     ev.preventDefault();
     nav(`/all-trips/${key}=${value}`);
+    // nav(0);
   };
 
   const handleFavorite = () => {
@@ -138,7 +139,6 @@ const Container = styled.div`
   display: ${(props) => (props.visible ? "none" : "")};
 
   position: relative;
-  border: 1px solid black;
   color: var(--color-dark);
   width: 25%;
   padding-left: 30px;
