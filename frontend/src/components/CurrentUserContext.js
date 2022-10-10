@@ -7,6 +7,7 @@ export const CurrentUserProvider = ({ children }) => {
   const [userContext, setUserContext] = useState();
   const { user } = useAuth0();
 
+
   useEffect(() => {
     //fetch user
 

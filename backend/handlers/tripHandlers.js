@@ -69,6 +69,7 @@ const getTripsByAuthor = async (req, res) => {
       .toArray();
     res.status(200).json({ status: 200, data: result });
   } catch (e) {
+    console.log(e)
     res.status(500).json({ status: 500, Error: e });
   }
 };

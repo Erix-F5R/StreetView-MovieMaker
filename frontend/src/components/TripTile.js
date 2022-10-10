@@ -14,7 +14,7 @@ const TripTile = ({ trip, myTrip }) => {
   const [isFav, setIsFav] = useState(false);
   const [isTrash, setIsTrash] = useState(false);
 
-  //UseEffect loaded if the post is favorited
+  //UseEffect loads if the post is favorited
   //On click changes the state & post to backend
   //This should comprimise between imediate feedback and storing state in db
   useEffect(() => {
@@ -55,8 +55,8 @@ const TripTile = ({ trip, myTrip }) => {
           <Trash />
         </TrashButton>
       ) : (
-        <StarButton fav={isFav} onClick={() => handleFavorite()}>
-          <Star fav={isFav} />
+        <StarButton fav={isFav ? isFav.toString() : undefined} onClick={() => handleFavorite()}>
+          <Star fav={isFav ? isFav.toString() : undefined} />
         </StarButton>
       )}
 

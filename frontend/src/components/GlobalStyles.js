@@ -5,6 +5,7 @@ import { createGlobalStyle } from "styled-components";
 export default createGlobalStyle`
 :root {
 --color-main: #68B684;
+--color-main-faded: rgba(103, 181, 133, 0.3);
 --color-dark: #16697A;
 --color-dark-disabled: #56747a;
 
