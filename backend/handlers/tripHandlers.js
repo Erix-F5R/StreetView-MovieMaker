@@ -141,6 +141,27 @@ const getTrip = async (req, res) => {
   client.close();
 };
 
+const deleteTrip = async (req, res) => {
+  const client = new MongoClient(MONGO_URI, options);
+  const trip = req.params.tripId;
+
+  try {
+    await client.connect();
+    const db = client.db("db-name");
+    const result = await db.collection("trips").deleteOne({ _id: trip });
+
+    result
+      ? res.status(200).json({ status: 200, data: result })
+      : res
+          .status(400)
+          .json({ status: 400, Error: "Trip not found.", data: trip });
+  } catch (e) {
+    res.status(500).json({ status: 500, Error: e });
+  }
+
+  client.close();
+}
+
 module.exports = {
   postTrip,
   getAllTrips,
@@ -148,4 +169,5 @@ module.exports = {
   getTripsByAuthor,
   getFavoriteTrips,
   patchFavorite,
+  deleteTrip,
 };

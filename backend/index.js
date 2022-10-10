@@ -13,6 +13,7 @@ const {
   getTripsByAuthor,
   getFavoriteTrips,
   patchFavorite,
+  deleteTrip,
 } = require("./handlers/tripHandlers");
 
 express()
@@ -31,9 +32,8 @@ express()
   .get("/trip/:tripId", getTrip)
   .get("/trips-by-author/:authorId", getTripsByAuthor)
   .get("/favorite-trips/:userId", getFavoriteTrips)
-
   .patch("/favorite-unfavorite", patchFavorite)
-  //   .delete('/delete-trip/:trip', deleteTrip)
+  .delete('/delete-trip/:tripId', deleteTrip)
 
   .get("/test", (req, res) => {
     res.status(200).json({ message: "test" });

@@ -36,7 +36,7 @@ const Profile = () => {
           </ProfileCard>
           <TripContainer>
           <MyTrips>MyTrips
-          { myTrips ? myTrips.map( (trip) => <TripTile key={trip._id} trip={trip}/>) : "loading..." }
+          { myTrips ? myTrips.map( (trip) => <TripTile key={trip._id} trip={trip} myTrip={true}/>) : "loading..." }
           </MyTrips>
           <FavoriteTrips>Favorite Trips
           { favoriteTrips ? favoriteTrips.map( (trip) => <TripTile key={trip._id} trip={trip}/>) : "loading..." }

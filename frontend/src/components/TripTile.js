@@ -2,9 +2,9 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
 import { CurrentUserContext } from "./CurrentUserContext";
-import { FiStar } from "react-icons/fi";
+import { FiStar, FiTrash2 } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
-const TripTile = ({ trip }) => {
+const TripTile = ({ trip, myTrip }) => {
   //The Thumbnails saved have a transparent padding of variable size
   //This is an un resolved bug in leaflet-easyprint
 
@@ -12,6 +12,14 @@ const TripTile = ({ trip }) => {
 
   const user = useContext(CurrentUserContext);
   const [isFav, setIsFav] = useState(false);
+  const [isTrash, setIsTrash] = useState(false);
+
+  //UseEffect loaded if the post is favorited
+  //On click changes the state & post to backend
+  //This should comprimise between imediate feedback and storing state in db
+  useEffect(() => {
+    setIsFav(trip.favoritedBy.includes(user._id));
+  }, []);
 
   const navToProfile = (ev) => {
     ev.preventDefault();
@@ -33,23 +41,28 @@ const TripTile = ({ trip }) => {
     });
   };
 
-  //UseEffect loaded if the post is favorited
-  //On click changes the state & post to backend
-  //This should comprimise between imediate feedback and storing state in db
-  useEffect(() => {
-    setIsFav(trip.favoritedBy.includes(user._id));
-  }, []);
-
-  console.log(trip, user);
+  const handleDelete = () => {
+    setIsTrash(true);
+    fetch(`/delete-trip/${trip._id}`, {
+      method: "DELETE",
+    });
+  };
 
   return (
-    <Container>
-      <StarButton fav={isFav} onClick={() => handleFavorite()}>
-        <Star fav={isFav} />
-      </StarButton>
+    <Container visible={isTrash}>
+      {myTrip ? (
+        <TrashButton onClick={() => handleDelete()}>
+          <Trash />
+        </TrashButton>
+      ) : (
+        <StarButton fav={isFav} onClick={() => handleFavorite()}>
+          <Star fav={isFav} />
+        </StarButton>
+      )}
+
       <Linky to={`/trips/${trip._id}`}>
         <Label>{trip.formData.label} </Label>
-        <Author onClick={(ev) => navToProfile(ev)}>by {trip.author}</Author>
+        <Author onClick={(ev) => navToProfile(ev)}>by {trip.username}</Author>
 
         <Difficulty>
           Rated: {trip.formData.difficulty}{" "}
@@ -74,7 +87,7 @@ const Linky = styled(Link)`
 
 const StarButton = styled.button`
   position: absolute;
-  margin: 8px;
+  margin: 5px;
   right: 0px;
   background: 0;
   color: ${(props) => (props.fav ? "goldenrod" : "#68B684")};
@@ -84,15 +97,23 @@ const StarButton = styled.button`
   }
 
   &:active {
-    transform: scale(1.2);
+    transform: scale(1.1);
   }
 `;
-
 const Star = styled(FiStar)`
   fill: ${(props) => (props.fav ? "goldenrod" : "0")};
 `;
 
+const TrashButton = styled(StarButton)`
+  &:hover {
+    color: var(--color-dark);
+  }
+`;
+const Trash = styled(FiTrash2)``;
+
 const Container = styled.div`
+  display: ${(props) => (props.visible ? "none" : "")};
+
   position: relative;
   border: 1px solid black;
   color: var(--color-dark);

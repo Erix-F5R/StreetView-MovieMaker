@@ -19,6 +19,7 @@ const NewTrip = () => {
       geocodedOrigin,
       geocodedDestination,
       author,
+      username,
       pathBearing,
       bbox,
       imgName,
@@ -28,18 +29,24 @@ const NewTrip = () => {
     actions: { receivedGeocoding, receivedPath },
   } = useContext(MapFlowContext);
 
-  //This should probably be in a context but I just needed one dispatch to open the modal in <OriginDestInput/>
-  //A little tasteful prop drilling
+  //This should maybe be in a context but I just needed one dispatch to open the modal in <OriginDestInput/>
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const user = useContext(CurrentUserContext)
+  const user = useContext(CurrentUserContext);
 
+  console.log(user)
 
   useEffect(() => {
     switch (status) {
       case "origin-dest-received": {
-        console.log(user._id)
-        GeoCode(origin, destination).then((res) => receivedGeocoding({...res, author: user._id }));
+        console.log(user._id);
+        GeoCode(origin, destination).then((res) =>
+          receivedGeocoding({
+            ...res,
+            author: user._id,
+            username: user.username,
+          })
+        );
         return;
       }
       case "origin-dest-geocoded": {
@@ -60,6 +67,7 @@ const NewTrip = () => {
           },
           body: JSON.stringify({
             author,
+            username,
             pathBearing,
             bbox,
             imgName,

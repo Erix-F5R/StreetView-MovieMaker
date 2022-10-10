@@ -16,6 +16,7 @@ export const MapFlowProvider = ({ children }) => {
   };
 
   const receivedGeocoding = (data) => {
+
     dispatch({
       type: "geocoded",
       ...data,
