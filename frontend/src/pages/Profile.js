@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import { CurrentUserContext } from "../components/CurrentUserContext";
 import TripTile from "../components/TripTile";
+import Loading from "../components/Loading";
 
 const Profile = () => {
   const userPic = useAuth0().user.picture;
@@ -28,8 +29,8 @@ const Profile = () => {
   };
 
   return (
-    <div>
-      {user && (
+    <>
+      {user ? (
         <Container>
           <TripContainer>
             <Tabs>
@@ -45,14 +46,14 @@ const Profile = () => {
                 ? myTrips.map((trip) => (
                     <TripTile key={trip._id} trip={trip} myTrip={true} />
                   ))
-                : "loading..."}
+                : <Loading />}
             </MyTrips>
             <FavoriteTrips selected={tabValue === 1}>
               {favoriteTrips
                 ? favoriteTrips.map((trip) => (
                     <TripTile key={trip._id} trip={trip} />
                   ))
-                : "loading..."}
+                : <Loading />}
             </FavoriteTrips>
           </TripContainer>
 
@@ -63,8 +64,10 @@ const Profile = () => {
             <Location>{user.location}</Location>
           </ProfileCard>
         </Container>
+      ) : (
+        <Loading />
       )}
-    </div>
+    </>
   );
 };
 
@@ -75,6 +78,8 @@ export default withAuthenticationRequired(Profile, {
 
 const Container = styled.div`
   display: flex;
+  justify-content: space-between;
+  width: 100%;
 `;
 
 const Tabs = styled.div`
@@ -121,7 +126,8 @@ const Tab = styled.button`
 
 const ProfileCard = styled.div`
   border: 2px solid var(--color-main);
-  margin: 10px 40px 10px -40px;
+  border-radius: 3px;
+  margin: 10px 40px 10px 0px;
   padding: 25px 10px 20px;
   min-width: 15%;
   height: auto;
@@ -156,7 +162,10 @@ const Location = styled.div`
   margin-top: 8px;
 `;
 
-const TripContainer = styled.div``;
+const TripContainer = styled.div`
+  width: 100%;
+  height: 100%;
+`;
 const MyTrips = styled.div`
   display: ${(props) => (props.selected ? "flex" : "none")};
   flex-wrap: wrap;

@@ -26,6 +26,11 @@ const TripTile = ({ trip, myTrip }) => {
     nav(`/user/${trip.author}`);
   };
 
+  const navToAllTrips = (ev, key, value) => {
+    ev.preventDefault();
+    nav(`/all-trips/${key}=${value}`);
+  };
+
   const handleFavorite = () => {
     setIsFav(!isFav);
     //Patch TO DB
@@ -55,7 +60,10 @@ const TripTile = ({ trip, myTrip }) => {
           <Trash />
         </TrashButton>
       ) : (
-        <StarButton fav={isFav ? isFav.toString() : undefined} onClick={() => handleFavorite()}>
+        <StarButton
+          fav={isFav ? isFav.toString() : undefined}
+          onClick={() => handleFavorite()}
+        >
           <Star fav={isFav ? isFav.toString() : undefined} />
         </StarButton>
       )}
@@ -65,11 +73,26 @@ const TripTile = ({ trip, myTrip }) => {
         <Author onClick={(ev) => navToProfile(ev)}>by {trip.username}</Author>
 
         <Difficulty>
-          Rated: {trip.formData.difficulty}{" "}
+          Rated:{" "}
+          <SpanLink
+            onClick={(ev) =>
+              navToAllTrips(ev, "difficulty", trip.formData.difficulty)
+            }
+          >
+            {trip.formData.difficulty}
+          </SpanLink>
           <Span>({Math.floor(trip.distance / 100) / 10} km)</Span>
         </Difficulty>
-        <Location>
-          {trip.formData.locality}, {trip.formData.country}{" "}
+        <Location> <SpanLink
+            onClick={(ev) =>
+              navToAllTrips(ev, "locality", trip.formData.locality)
+            }
+          >
+          {trip.formData.locality}</SpanLink>,  <SpanLink
+            onClick={(ev) =>
+              navToAllTrips(ev, "country", trip.formData.country)
+            }
+          >{trip.formData.country}</SpanLink>
         </Location>
         <ImgWrapper>
           <Image
@@ -162,6 +185,16 @@ const Difficulty = styled.div`
 const Span = styled.span`
   margin-left: 20px;
   font-weight: bold;
+`;
+
+const SpanLink = styled.span`
+
+  transition: color 0.5s;
+  cursor: pointer;
+
+  &:hover {
+    color: var(--color-dark);
+  }
 `;
 
 const Location = styled.div``;

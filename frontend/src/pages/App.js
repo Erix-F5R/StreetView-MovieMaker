@@ -40,6 +40,7 @@ const App = () => {
         <Route path="/" element={<Homepage />} />
         <Route path="/user/:userId" element={<User />} />
         <Route path="/trips/:tripId" element={<Trip />} />
+        <Route path="/all-trips/:filterParam" element={<AllTrips />} />
         <Route path="/all-trips" element={<AllTrips />} />
         <Route path="*" element={<h1>404: Oops!</h1>} />
       </Routes>

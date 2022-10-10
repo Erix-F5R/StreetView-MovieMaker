@@ -51,8 +51,7 @@ const getUser = async (req, res) => {
       
       const user = {
         username: result[0].username,
-        my_trips: result[0].my_trips,
-        fav_trips: result[0].fav_trips,
+        location: result[0].location,
       };
   
       res.status(200).json({ status: 200, data: user });

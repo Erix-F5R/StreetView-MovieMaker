@@ -79,7 +79,6 @@ const NewTrip = () => {
 
   return (
     <>
-      <div>New Trip</div>
       <Container>
         <OriginDestInput dispatch={dispatch} />
         <NewMap />
