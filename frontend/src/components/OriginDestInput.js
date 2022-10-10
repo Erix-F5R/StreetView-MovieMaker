@@ -37,7 +37,7 @@ const OriginDestInput = ({ dispatch }) => {
         />
       </InputWrapper>
       <ButtonWrapper>
-        <Button onClick={submitInputs}>{status === 'idle' || status === 'save' || status === 'path-received'? 'Go' : <CircularProgress/>}</Button>
+        <Button onClick={submitInputs}>{status === 'idle' || status === 'save' || status === 'path-received'? 'Go' : <CircularProgress sx={{color: ' #16697A'}}/>}</Button>
         <ButtonPlay
           onClick={() => dispatch({ type: "open-video" })}
           disabled={status !== "path-received" && status !== 'save'}

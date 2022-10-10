@@ -34,12 +34,10 @@ const NewTrip = () => {
 
   const user = useContext(CurrentUserContext);
 
-  console.log(user)
-
   useEffect(() => {
     switch (status) {
       case "origin-dest-received": {
-        console.log(user._id);
+
         GeoCode(origin, destination).then((res) =>
           receivedGeocoding({
             ...res,

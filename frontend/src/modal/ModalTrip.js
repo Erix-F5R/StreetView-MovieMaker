@@ -7,18 +7,17 @@ import useInterval from "../hooks/useInterval";
 import { FiRotateCw, FiPlay, FiPause } from "react-icons/fi";
 import { MapFlowContext } from "../MapFlow/MapFlowContext";
 import StreetViewBuilder from "../MapFlow/StreetViewBuilder";
+import CircularProgress from "@mui/material/CircularProgress";
 
 //This component is two modals, one to view the trip and a second with a form to rate the trip
 //The states are managed by ModalReducer.js
-const ModalTrip = ({state, dispatch}) => {
-
-
+const ModalTrip = ({ state, dispatch }) => {
   const {
     state: { status, country, locality, label, pathBearing },
-    actions: {saveTrip},
+    actions: { saveTrip },
   } = useContext(MapFlowContext);
 
-  const [images, setImages] = useState([])
+  const [images, setImages] = useState([]);
 
   useEffect(() => {
     if (status === "path-received") {
@@ -26,10 +25,8 @@ const ModalTrip = ({state, dispatch}) => {
         type: "init-formData",
         data: { country: country, label: label, locality: locality },
       });
-      setImages( StreetViewBuilder(pathBearing));
+      setImages(StreetViewBuilder(pathBearing));
     }
-
-
   }, [status]);
 
   //ProgressBar util state
@@ -40,7 +37,19 @@ const ModalTrip = ({state, dispatch}) => {
     Reset: <FiRotateCw />,
   };
 
+  //I added a timeout to the save to give the user some feedback
+  const handleSave = (e) => {
+    e.preventDefault();
+    saveTrip(state.formData);
 
+    const timeoutFunc = () => {
+      dispatch({type: 'close-rate'})
+    };
+
+    const timeout = setTimeout(timeoutFunc, 3000);
+
+    saveTrip(state.formData);
+  };
 
   //Google won't allow saving their images so the movie is faked using intervals
   //setInterval behaves irregularly with react
@@ -57,7 +66,6 @@ const ModalTrip = ({state, dispatch}) => {
 
   return (
     <>
-
       {/* First Modal (Movie)*/}
       <Modal
         open={state.openVideo}
@@ -68,7 +76,7 @@ const ModalTrip = ({state, dispatch}) => {
         <Container>
           <img
             style={{ height: "400px", width: "400px" }}
-              src={images[state.frame % images.length]}
+            src={images[state.frame % images.length]}
             // src={require("../assets/" +
             //   `${images[state.frame % images.length]}`)}
           />
@@ -181,12 +189,15 @@ const ModalTrip = ({state, dispatch}) => {
               />
               <Submit
                 type="submit"
-                value="Save!"
-                onClick={(e) => {
-                  e.preventDefault();
-                  saveTrip(state.formData);
-                }}
-              />
+                // onClick={(e) => {
+                //   e.preventDefault();
+                //   e.target.innerHtml = 'Loading...'
+                //   saveTrip(state.formData);
+                // }}
+                onClick={(e) => handleSave(e)}
+              >
+                {status === "save" ? <CircularProgress /> : "Save"}
+              </Submit>
             </Label>
           </Form>
         </Container>
@@ -251,7 +262,11 @@ const Textarea = styled.textarea`
   color: var(--color-dark);
 `;
 
-const Submit = styled.input`
+const Submit = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 25%;
   padding: 5px 15px;
   margin: 12px 0px;
   font-size: 24px;
