@@ -38,17 +38,13 @@ const ModalTrip = ({ state, dispatch }) => {
   };
 
   //I added a timeout to the save to give the user some feedback
-  const handleSave = (e) => {
-    e.preventDefault();
+  const handleSave = (event) => {
+    event.preventDefault();
     saveTrip(state.formData);
-
-    const timeoutFunc = () => {
-      dispatch({type: 'close-rate'})
-    };
-
-    const timeout = setTimeout(timeoutFunc, 3000);
-
-    saveTrip(state.formData);
+    const timeout = setTimeout(() => {
+      dispatch({ type: "close-rate" });
+      clearTimeout(timeout);
+    }, 3000);
   };
 
   //Google won't allow saving their images so the movie is faked using intervals
@@ -187,16 +183,8 @@ const ModalTrip = ({ state, dispatch }) => {
                   })
                 }
               />
-              <Submit
-                type="submit"
-                // onClick={(e) => {
-                //   e.preventDefault();
-                //   e.target.innerHtml = 'Loading...'
-                //   saveTrip(state.formData);
-                // }}
-                onClick={(e) => handleSave(e)}
-              >
-                {status === "save" ? <CircularProgress /> : "Save"}
+              <Submit type="submit" onClick={(e) => handleSave(e)}>
+                {status === "save" ? <CircularProgress sx={{ color: " #16697A" }}/> : "Save"}
               </Submit>
             </Label>
           </Form>

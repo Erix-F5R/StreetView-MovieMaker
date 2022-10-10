@@ -23,7 +23,6 @@ const OriginDestInput = ({ dispatch }) => {
 
   return (
     <Container>
-  
       <InputWrapper>
         <Input
           type="text"
@@ -37,10 +36,18 @@ const OriginDestInput = ({ dispatch }) => {
         />
       </InputWrapper>
       <ButtonWrapper>
-        <Button onClick={submitInputs}>{status === 'idle' || status === 'save' || status === 'path-received'? 'Go' : <CircularProgress sx={{color: ' #16697A'}}/>}</Button>
+        <Button onClick={submitInputs}>
+          {status === "idle" ||
+          status === "save" ||
+          status === "path-received" ? (
+            "Go"
+          ) : (
+            <CircularProgress sx={{ color: " #16697A" }} />
+          )}
+        </Button>
         <ButtonPlay
           onClick={() => dispatch({ type: "open-video" })}
-          disabled={status !== "path-received" && status !== 'save'}
+          disabled={status !== "path-received" && status !== "save"}
         >
           View Trip <FiPlay />
         </ButtonPlay>
