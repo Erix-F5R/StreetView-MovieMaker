@@ -27,8 +27,6 @@ const getProfile = async (req, res) => {
       _id: result[0]._id,
       email: result[0].email,
       username: result[0].username,
-      my_trips: result[0].my_trips,
-      fav_trips: result[0].fav_trips,
     };
 
 

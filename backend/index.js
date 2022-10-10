@@ -4,45 +4,39 @@ const morgan = require("morgan");
 
 const port = 4000;
 
-const {
-  getProfile,
-  getUser,
-} = require("./handlers/userHandlers");
+const { getProfile, getUser } = require("./handlers/userHandlers");
 
 const {
-  postTrip, getAllTrips, getTrip,getTripsByAuthor, getFavoriteTrips
-} = require("./handlers/tripHandlers")
- 
+  postTrip,
+  getAllTrips,
+  getTrip,
+  getTripsByAuthor,
+  getFavoriteTrips,
+  patchFavorite,
+} = require("./handlers/tripHandlers");
+
 express()
-
   .use(helmet())
   .use(morgan("tiny"))
   .use(express.json())
 
-//User Collection
-  .get('/profile/:myId', getProfile)
-  .get('/user/:user' , getUser)
-  
-//   .patch('/favorite/:trip', favoriteTrip)
-//   .patch('/unfavorite/:trip', unfavoriteTrip)
-  
-  
-// //Trip Collection
-//   .get('/trip/:trip', getTrip)
+  //User Collection
+  .get("/profile/:myId", getProfile)
+  .get("/user/:user", getUser)
 
-//Why does the trip object look like?
-  .post('/add-trip', postTrip)
-  .get('/trips', getAllTrips)
-  .get('/trip/:tripId' , getTrip)
-  .get('/trips-by-author/:authorId', getTripsByAuthor)
-  .get('/favorite-trips/:userId', getFavoriteTrips)
-//   .delete('/delete-trip/:trip', deleteTrip)
+  // //Trip Collection
 
+  .post("/add-trip", postTrip)
+  .get("/trips", getAllTrips)
+  .get("/trip/:tripId", getTrip)
+  .get("/trips-by-author/:authorId", getTripsByAuthor)
+  .get("/favorite-trips/:userId", getFavoriteTrips)
 
+  .patch("/favorite-unfavorite", patchFavorite)
+  //   .delete('/delete-trip/:trip', deleteTrip)
 
-
-  .get('/test', (req,res) => {
-    res.status(200).json({message: 'test'})
+  .get("/test", (req, res) => {
+    res.status(200).json({ message: "test" });
   })
 
   .listen(port, () => {

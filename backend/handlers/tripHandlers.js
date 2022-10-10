@@ -1,5 +1,6 @@
 "use strict";
 
+const e = require("express");
 //MongoDB Setup
 const { MongoClient } = require("mongodb");
 const ObjectId = require("mongodb").ObjectId;
@@ -56,34 +57,67 @@ const getAllTrips = async (req, res) => {
 };
 
 const getTripsByAuthor = async (req, res) => {
-
   const client = new MongoClient(MONGO_URI, options);
   const author = req.params.authorId;
-  console.log(author)
+
   try {
     await client.connect();
     const db = client.db("db-name");
-    const result = await db.collection("trips").find({author : author}).toArray();
+    const result = await db
+      .collection("trips")
+      .find({ author: author })
+      .toArray();
     res.status(200).json({ status: 200, data: result });
   } catch (e) {
     res.status(500).json({ status: 500, Error: e });
   }
-
 };
 
 const getFavoriteTrips = async (req, res) => {
-
   const client = new MongoClient(MONGO_URI, options);
   const user = req.params.userId;
   try {
     await client.connect();
     const db = client.db("db-name");
-    const result = await db.collection("trips").find({favoritedBy : user}).toArray();
+    const result = await db
+      .collection("trips")
+      .find({ favoritedBy: user })
+      .toArray();
     res.status(200).json({ status: 200, data: result });
   } catch (e) {
     res.status(500).json({ status: 500, Error: e });
   }
+};
 
+const patchFavorite = async (req, res) => {
+  const client = new MongoClient(MONGO_URI, options);
+  const user = req.body.user;
+  const trip = req.body.trip;
+
+  try {
+    await client.connect();
+    const db = client.db("db-name");
+    const result = await db
+      .collection("trips")
+      .findOne({ _id: trip, favoritedBy: user });
+
+      let favorite;
+    if (result) {
+      //unfavorite
+      favorite = await db
+      .collection("trips")
+      .updateOne({ _id: trip }, { $pull: { favoritedBy: user } });
+    } else {
+      //favorite
+      favorite = await db
+        .collection("trips")
+        .updateOne({ _id: trip }, { $push: { favoritedBy: user } });
+    }
+
+    res.status(200).json({ status: 200, data: favorite });
+  } catch (e) {
+    res.status(500).json({ status: 500, Error: e });
+  }
 };
 
 const getTrip = async (req, res) => {
@@ -112,5 +146,6 @@ module.exports = {
   getAllTrips,
   getTrip,
   getTripsByAuthor,
-  getFavoriteTrips
+  getFavoriteTrips,
+  patchFavorite,
 };
