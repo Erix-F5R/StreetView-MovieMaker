@@ -1,8 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import TripDetailMap from "../components/TripDetailMap";
 import Loading from "../components/Loading";
+import { FiStar } from "react-icons/fi";
+import { CurrentUserContext } from "../components/CurrentUserContext";
 
 //Trip detail page
 const Trip = () => {
@@ -29,10 +31,36 @@ const Trip = () => {
       .then((data) => setTrip(data.data));
   }, []);
 
+  const user = useContext(CurrentUserContext);
+  const [isFav, setIsFav] = useState(false);
+
+  const handleFavorite = () => {
+    setIsFav(!isFav);
+    //Patch TO DB
+    fetch("/favorite-unfavorite", {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        user: user._id,
+        trip: trip._id,
+      }),
+    });
+  };
+
   return (
     <Center>
       {trip ? (
         <Container>
+          {Object.keys(user).length !== 0 && (
+            <StarButton
+              fav={isFav ? isFav.toString() : undefined}
+              onClick={() => handleFavorite()}
+            >
+              <Star fav={isFav ? isFav.toString() : undefined} />
+            </StarButton>
+          )}
           <HeaderWrapper>
             <InfoWrapper>
               <Label>{trip.formData.label} </Label>
@@ -85,6 +113,28 @@ const Center = styled.div`
   justify-content: center;
 `;
 
+const StarButton = styled.button`
+  position: absolute;
+  margin: 5px;
+  right: 0px;
+  top: 0px;
+  background: 0;
+  color: ${(props) => (props.fav ? "goldenrod" : "#68B684")};
+  font-size: 36px;
+
+  &:hover {
+    color: goldenrod;
+  }
+
+  &:active {
+    transform: scale(1.1);
+  }
+`;
+const Star = styled(FiStar)`
+
+  fill: ${(props) => (props.fav ? "goldenrod" : "0")};
+`;
+
 const HeaderWrapper = styled.div`
   display: flex;
   justify-content: space-between;
@@ -111,7 +161,7 @@ const Notes = styled.div`
 `;
 
 const Container = styled.div`
-  border: 1px solid black;
+  position: relative;
   color: var(--color-dark);
   width: fit-content;
   padding: 30px;
