@@ -39,6 +39,10 @@ const ModalTrip = ({ state, dispatch }) => {
     Reset: <FiRotateCw />,
   };
 
+  useEffect(()=> {
+    setBarWidth(0);
+  },[state.openVideo])
+
   //I added a timeout to the save to give the user some feedback
   //Make them feel like they did some work by clicking the button
   const handleSave = (event) => {

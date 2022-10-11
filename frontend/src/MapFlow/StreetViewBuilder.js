@@ -4,7 +4,7 @@ const StreetViewBuilder = (pathArray) => {
 
     //Limit to protect api calls
     //28 000 calls a month free but even a 5min ride can be 100s of frames
-    const LIMIT = pathArray.length > 5 ? 5 : pathArray.length ; 
+    const LIMIT = pathArray.length > 100 ? 100 : pathArray.length ; 
     const KEY = process.env.REACT_APP_GOOGLE_KEY;
 
     const buildURL = (lat, lng, bearing) => {

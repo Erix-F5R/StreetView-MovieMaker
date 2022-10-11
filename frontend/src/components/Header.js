@@ -10,12 +10,13 @@ const Header = () => {
 
   const user = useContext(CurrentUserContext);
 
+
   return (
     <Wrapper>
       <Home to={"/"}>Route+Viewer</Home>
       <Click to={"/new-trip"}>+ New Trip</Click>
       <Click to={"/all-trips"}>All Trips</Click>
-      {user ? <Click to={"/profile"}>{user.username}</Click> : <SignupButton />}
+      {Object.keys(user).length !== 0 ? <Click to={"/profile"}>{user.username}</Click> : <SignupButton />}
       <AuthNav />
     </Wrapper>
   );
