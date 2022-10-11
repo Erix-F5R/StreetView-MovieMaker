@@ -70,7 +70,7 @@ const Trip = () => {
           <HeaderWrapper>
             <InfoWrapper>
               <Label>{trip.formData.label} </Label>
-              <Author onClick={(ev) => navToProfile(ev)}>by {"pacific"}</Author>
+              <Author onClick={(ev) => navToProfile(ev)}>by {trip.username}</Author>
 
               <Difficulty>
                 Rated:{" "}

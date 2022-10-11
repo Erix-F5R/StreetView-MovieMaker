@@ -64,7 +64,7 @@ const ModalTrip = ({ state, dispatch }) => {
         : dispatch({ type: "frame-increment" });
       setBarWidth(Math.floor(((state.frame + 1) / images.length) * 100));
     },
-    state.playPauseReset === "Pause" ? 1000 : null
+    state.playPauseReset === "Pause" ? 500 : null
   );
 
   return (
