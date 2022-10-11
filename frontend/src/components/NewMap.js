@@ -41,6 +41,8 @@ const NewMap = () => {
 const StyledMap = styled(MapContainer)`
   height: 400px;
   width: 800px;
+  position: relative;
+  z-index: -1;
 `;
 
 export default NewMap;

@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useState, useContext } from "react";
 import { MapFlowContext } from "../MapFlow/MapFlowContext";
 import CircularProgress from "@mui/material/CircularProgress";
+import GoogleInput from "./GoogleInput";
 
 import { FiPlay } from "react-icons/fi";
 
@@ -12,8 +13,13 @@ const OriginDestInput = ({ dispatch }) => {
     actions: { receivedOriginDestination },
   } = useContext(MapFlowContext);
 
-  const handleChange = (key, val) => {
-    setOriginDestination({ ...originDestination, [key]: val });
+
+  const handleChangeO = (event) => {
+    setOriginDestination({ ...originDestination, 'origin': event.label });
+  };
+
+  const handleChangeD = (event) => {
+    setOriginDestination({ ...originDestination, 'destination': event.label });
   };
 
   const submitInputs = (event) => {
@@ -24,16 +30,8 @@ const OriginDestInput = ({ dispatch }) => {
   return (
     <Container>
       <InputWrapper>
-        <Input
-          type="text"
-          placeholder="Origin"
-          onChange={(event) => handleChange("origin", event.target.value)}
-        />
-        <Input
-          type="text"
-          placeholder="Destination"
-          onChange={(event) => handleChange("destination", event.target.value)}
-        />
+        <GoogleInput handleChange={handleChangeO} pHolder={"Origin"}/>
+        <GoogleInput handleChange={handleChangeD} pHolder={"Destination"}/>
       </InputWrapper>
       <ButtonWrapper>
         <Button onClick={submitInputs}>
@@ -60,6 +58,7 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   margin: 10px;
+
 `;
 
 const ButtonWrapper = styled.div`
@@ -67,7 +66,9 @@ const ButtonWrapper = styled.div`
   padding-top: 5px;
 `;
 
-const InputWrapper = styled.div``;
+const InputWrapper = styled.div`
+  width: 100%;
+`;
 
 const Input = styled.input`
   display: block;
@@ -82,7 +83,7 @@ const Input = styled.input`
 const Button = styled.button`
   padding: 4px 8px;
   margin-left: 12px;
-  min-width: 64px;
+  min-width: 72px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -109,6 +110,7 @@ const ButtonPlay = styled(Button)`
   background: var(--color-dark);
   border: 1px solid var(--color-dark);
   padding-left: 10px;
+  min-width: 220px;
 
   &:disabled {
     background: var(--color-dark-disabled);

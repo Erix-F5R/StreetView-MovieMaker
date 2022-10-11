@@ -8,7 +8,7 @@ import User from "./User";
 import Trip from "./Trip";
 import NewTrip from "./NewTrip";
 import AllTrips from "./AllTrips";
-import Test from "./Test"
+import Test from "../components/GoogleInput"
 import { MapFlowProvider } from "../MapFlow/MapFlowContext";
 
 const App = () => {
@@ -42,7 +42,6 @@ const App = () => {
         <Route path="/trips/:tripId" element={<Trip />} />
         <Route path="/all-trips/:filterParam" element={<AllTrips />} />
         <Route path="/all-trips" element={<AllTrips />} />
-        <Route path="/test" element={<Test/>} />
         <Route path="*" element={<h1>404: Oops!</h1>} />
       </Routes>
     </>

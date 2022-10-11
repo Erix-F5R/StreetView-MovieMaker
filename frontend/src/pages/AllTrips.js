@@ -59,62 +59,58 @@ const AllTrips = () => {
 
   return (
     <Container>
-      <Wrapper>
-        {trips.length ? (
-          trips
+    { trips.length? (
+      <><Wrapper>
+          {trips
             .filter((trip) => trip.formData[filter.key] === filter.value)
-            .map((trip) => <TripTile key={trip._id} trip={trip} />)
-        ) : (
-          <Loading />
-        )}
-      </Wrapper>
+            .map((trip) => (
+              <TripTile key={trip._id} trip={trip} />
+            ))}
+        </Wrapper><FilterContainer>
+            <CurrentFilter
+              hidden={filter.key}
+              onClick={(event) => {
+                event.preventDefault();
+                setFilter({ key: undefined, value: undefined });
+              } }
+            >
+              <Span>{filter.value}</Span>
+              <FiXCircle />
+            </CurrentFilter>
+            <FilterCard>
+              <fieldset>
+                <Title>Difficulty</Title>
+                {difficulties.map((option) => (
+                  <RadioButton
+                    key={option}
+                    category={"difficulty"}
+                    option={option}
+                    filterValue={filter.value}
+                    handleClick={handleClick} />
+                ))}
+                <Title>Country</Title>
+                {countries.map((option) => (
+                  <RadioButton
+                    key={option}
+                    category={"country"}
+                    option={option}
+                    filterValue={filter.value}
+                    handleClick={handleClick} />
+                ))}
+                <Title>City</Title>
+                {localities.map((option) => (
+                  <RadioButton
+                    key={option}
+                    category={"locality"}
+                    option={option}
+                    filterValue={filter.value}
+                    handleClick={handleClick} />
+                ))}
+              </fieldset>
+            </FilterCard>
+          </FilterContainer></>
 
-      <FilterContainer>
-        <CurrentFilter
-          hidden={filter.key}
-          onClick={(event) => {
-            event.preventDefault();
-            setFilter({ key: undefined, value: undefined });
-          }}
-        >
-          <Span>{filter.value}</Span>
-          <FiXCircle />
-        </CurrentFilter>
-        <FilterCard>
-          <fieldset>
-            <Title>Difficulty</Title>
-            {difficulties.map((option) => (
-              <RadioButton
-                key={option}
-                category={"difficulty"}
-                option={option}
-                filterValue={filter.value}
-                handleClick={handleClick}
-              />
-            ))}
-            <Title>Country</Title>
-            {countries.map((option) => (
-              <RadioButton
-                key={option}
-                category={"country"}
-                option={option}
-                filterValue={filter.value}
-                handleClick={handleClick}
-              />
-            ))}
-            <Title>City</Title>
-            {localities.map((option) => (
-              <RadioButton
-                key={option}
-                category={"locality"}
-                option={option}
-                filterValue={filter.value}
-                handleClick={handleClick}
-              />
-            ))}
-          </fieldset>
-        </FilterCard>
-      </FilterContainer>
+      ) : <Loading/>}
     </Container>
   );
 };
@@ -151,7 +147,6 @@ const FilterContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-
 `;
 
 const FilterCard = styled.div`
@@ -164,9 +159,6 @@ const FilterCard = styled.div`
   align-items: center;
 
   border: 2px solid var(--color-main);
-
-
-
 `;
 
 const Span = styled.div`
