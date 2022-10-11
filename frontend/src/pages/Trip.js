@@ -31,8 +31,14 @@ const Trip = () => {
       .then((data) => setTrip(data.data));
   }, []);
 
+  //Below is all the favorite infrastructure ported from TripTile.js
   const user = useContext(CurrentUserContext);
   const [isFav, setIsFav] = useState(false);
+
+  useEffect(() => {
+
+    trip && setIsFav(trip.favoritedBy.includes(user._id));
+  }, [trip]);
 
   const handleFavorite = () => {
     setIsFav(!isFav);
