@@ -156,6 +156,7 @@ const Container = styled.div`
   position: relative;
   color: var(--color-dark);
   width: 25%;
+  max-height: 270px;
 
   padding-left: 30px;
   margin: 30px;
