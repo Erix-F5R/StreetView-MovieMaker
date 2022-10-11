@@ -23,8 +23,9 @@ const Header = () => {
 const Wrapper = styled.div`
   width: 100vw;
   margin: 10px 0px;
-  border-bottom: 3px solid var(--color-main);
 
+  border-bottom: 3px solid var(--color-main);
+  background:white;
   display: flex;
 
   align-items: end;

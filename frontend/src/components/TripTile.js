@@ -14,6 +14,7 @@ const TripTile = ({ trip, myTrip }) => {
   const [isFav, setIsFav] = useState(false);
   const [isTrash, setIsTrash] = useState(false);
 
+
   //UseEffect loads if the post is favorited
   //On click changes the state & post to backend
   //This should comprimise between imediate feedback and storing state in db
@@ -61,12 +62,14 @@ const TripTile = ({ trip, myTrip }) => {
           <Trash />
         </TrashButton>
       ) : (
-        <StarButton
-          fav={isFav ? isFav.toString() : undefined}
-          onClick={() => handleFavorite()}
-        >
-          <Star fav={isFav ? isFav.toString() : undefined} />
-        </StarButton>
+        Object.keys(user).length !== 0 && (
+          <StarButton
+            fav={isFav ? isFav.toString() : undefined}
+            onClick={() => handleFavorite()}
+          >
+            <Star fav={isFav ? isFav.toString() : undefined} />
+          </StarButton>
+        )
       )}
 
       <Linky to={`/trips/${trip._id}`}>
@@ -84,16 +87,23 @@ const TripTile = ({ trip, myTrip }) => {
           </SpanLink>
           <Span>({Math.floor(trip.distance / 100) / 10} km)</Span>
         </Difficulty>
-        <Location> <SpanLink
+        <Location>
+          {" "}
+          <SpanLink
             onClick={(ev) =>
               navToAllTrips(ev, "locality", trip.formData.locality)
             }
           >
-          {trip.formData.locality}</SpanLink>,  <SpanLink
+            {trip.formData.locality}
+          </SpanLink>
+          ,{" "}
+          <SpanLink
             onClick={(ev) =>
               navToAllTrips(ev, "country", trip.formData.country)
             }
-          >{trip.formData.country}</SpanLink>
+          >
+            {trip.formData.country}
+          </SpanLink>
         </Location>
         <ImgWrapper>
           <Image
@@ -141,6 +151,7 @@ const Container = styled.div`
   position: relative;
   color: var(--color-dark);
   width: 25%;
+
   padding-left: 30px;
   margin: 30px;
   border: 3px solid var(--color-main);
@@ -188,7 +199,6 @@ const Span = styled.span`
 `;
 
 const SpanLink = styled.span`
-
   transition: color 0.5s;
   cursor: pointer;
 

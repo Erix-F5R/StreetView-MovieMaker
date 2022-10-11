@@ -69,8 +69,7 @@ const AllTrips = () => {
         )}
       </Wrapper>
 
-      <FilterCard>
-        filtercard
+      <FilterContainer>
         <CurrentFilter
           hidden={filter.key}
           onClick={(event) => {
@@ -81,39 +80,41 @@ const AllTrips = () => {
           <Span>{filter.value}</Span>
           <FiXCircle />
         </CurrentFilter>
-        <fieldset>
-          <Title>Difficulty</Title>
-          {difficulties.map((option) => (
-            <RadioButton
-              key={option}
-              category={"difficulty"}
-              option={option}
-              filterValue={filter.value}
-              handleClick={handleClick}
-            />
-          ))}
-          <Title>Country</Title>
-          {countries.map((option) => (
-            <RadioButton
-              key={option}
-              category={"country"}
-              option={option}
-              filterValue={filter.value}
-              handleClick={handleClick}
-            />
-          ))}
-          <Title>City</Title>
-          {localities.map((option) => (
-            <RadioButton
-              key={option}
-              category={"locality"}
-              option={option}
-              filterValue={filter.value}
-              handleClick={handleClick}
-            />
-          ))}
-        </fieldset>
-      </FilterCard>
+        <FilterCard>
+          <fieldset>
+            <Title>Difficulty</Title>
+            {difficulties.map((option) => (
+              <RadioButton
+                key={option}
+                category={"difficulty"}
+                option={option}
+                filterValue={filter.value}
+                handleClick={handleClick}
+              />
+            ))}
+            <Title>Country</Title>
+            {countries.map((option) => (
+              <RadioButton
+                key={option}
+                category={"country"}
+                option={option}
+                filterValue={filter.value}
+                handleClick={handleClick}
+              />
+            ))}
+            <Title>City</Title>
+            {localities.map((option) => (
+              <RadioButton
+                key={option}
+                category={"locality"}
+                option={option}
+                filterValue={filter.value}
+                handleClick={handleClick}
+              />
+            ))}
+          </fieldset>
+        </FilterCard>
+      </FilterContainer>
     </Container>
   );
 };
@@ -121,27 +122,51 @@ const AllTrips = () => {
 const Container = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 100%;
 `;
 
-const Title = styled.div``;
+const Title = styled.div`
+  font-size: 18px;
+  font-weight: bold;
+  color: var(--color-dark);
+  margin-top: 10px;
+
+  border-bottom: 2px solid;
+  border-image: linear-gradient(
+      to right,
+      var(--color-main),
+      var(--color-main-faded) 10%,
+      white 40%
+    )
+    1;
+`;
+
+const FilterContainer = styled.div`
+  position: sticky;
+  align-self: flex-start;
+  top: 60px;
+  overflow-y: auto;
+  margin: 10px 40px 10px 0px;
+  min-width: 15%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+`;
 
 const FilterCard = styled.div`
-  border: 2px solid var(--color-main);
   border-radius: 3px;
-  margin: 10px 40px 10px 0px;
-  padding: 25px 10px 20px;
-  min-width: 15%;
+  padding: 10px 10px 20px;
   height: auto;
 
   display: flex;
   flex-direction: column;
   align-items: center;
 
-  position: sticky;
-  align-self: flex-start;
-  top: 60px;
-  overflow-y: auto;
+  border: 2px solid var(--color-main);
+
+
+
 `;
 
 const Span = styled.div`
@@ -150,12 +175,13 @@ const Span = styled.div`
 `;
 
 const CurrentFilter = styled.div`
-  visibility: ${props => props.hidden? 'visible' : 'hidden'};
+  visibility: ${(props) => (props.hidden ? "visible" : "hidden")};
 
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  width: fit-content;
 
   padding: 15px;
   margin: 5px;
@@ -177,6 +203,7 @@ const CurrentFilter = styled.div`
 const Wrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
+  width: 100%;
 `;
 
 export default AllTrips;
