@@ -10,6 +10,8 @@ import NewMap from "../components/NewMap";
 import ModalTrip from "../modal/ModalTrip";
 import { CurrentUserContext } from "../components/CurrentUserContext";
 import { useNavigate } from "react-router-dom";
+import Loading from "../components/Loading";
+
 
 //New trip page, loads the map and inputs, and connects the modal
 const NewTrip = () => {
@@ -111,5 +113,5 @@ const Container = styled.div`
 `;
 
 export default withAuthenticationRequired(NewTrip, {
-  onRedirecting: () => <>Loading...</>,
+  onRedirecting: () => <><Loading/></>,
 });

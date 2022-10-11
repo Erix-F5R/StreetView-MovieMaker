@@ -79,7 +79,7 @@ const Profile = () => {
 
 //Log in Protection
 export default withAuthenticationRequired(Profile, {
-  onRedirecting: () => <>Loading...</>,
+  onRedirecting: () => <><Loading/></>,
 });
 
 const Container = styled.div`
