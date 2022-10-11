@@ -30,7 +30,7 @@ const AllTrips = () => {
     fetch("/trips")
       .then((res) => res.json())
       .then((data) => {
-        setTrips(data.data);
+        setTrips(data.data.reverse());
         return data.data;
       })
       .then((trips) => {
