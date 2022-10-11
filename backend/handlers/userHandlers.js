@@ -7,13 +7,8 @@ require("dotenv").config();
 const { MONGO_URI } = process.env;
 const options = { useNewUrlParser: true, useUnifiedTopology: true };
 
-//200 OK
-//201 Created
-//400 Bad request
-//404 not found
-//500 server error
 
-//Get my profile, includes private info
+//Get my profile, includes private info. Didn't ever implement much private info. Only email at this point
 const getProfile = async (req, res) => {
   const client = new MongoClient(MONGO_URI, options);
   const myId = ObjectId(req.params.myId);

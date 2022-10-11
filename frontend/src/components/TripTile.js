@@ -5,12 +5,15 @@ import { CurrentUserContext } from "./CurrentUserContext";
 import { FiStar, FiTrash2 } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 const TripTile = ({ trip, myTrip }) => {
+
   //The Thumbnails saved have a transparent padding of variable size
   //This is an un resolved bug in leaflet-easyprint
 
   const nav = useNavigate();
 
   const user = useContext(CurrentUserContext);
+
+  //User clicks the favorite & delete buttons
   const [isFav, setIsFav] = useState(false);
   const [isTrash, setIsTrash] = useState(false);
 
@@ -22,15 +25,17 @@ const TripTile = ({ trip, myTrip }) => {
     setIsFav(trip.favoritedBy.includes(user._id));
   }, []);
 
+  //If you click on username in tile, nav to user profile
   const navToProfile = (ev) => {
     ev.preventDefault();
     nav(`/user/${trip.author}`);
   };
 
+  //nav to AllTrips with filter, if you click difficulty, city, country
   const navToAllTrips = (ev, key, value) => {
     ev.preventDefault();
     nav(`/all-trips/${key}=${value}`);
-    // nav(0);
+
   };
 
   const handleFavorite = () => {

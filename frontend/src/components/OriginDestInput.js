@@ -6,6 +6,7 @@ import GoogleInput from "./GoogleInput";
 
 import { FiPlay } from "react-icons/fi";
 
+//New Trip Inputs and Go/View Trip buttons
 const OriginDestInput = ({ dispatch }) => {
   const [originDestination, setOriginDestination] = useState({});
   const {

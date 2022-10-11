@@ -1,16 +1,13 @@
-import Loading from "../components/Loading";
 import banner from "../assets/banner.jpg";
 import styled from "styled-components";
 
 const Homepage = () => {
   const text = `Not all bike paths are created equal.\n Often a suggested bike route can turn into an arduous journey navigating highway overpasses, narrow shoulders and heavy traffic. Route+Viewer simplifies route planning by saving you the hassel of clicking down Google Streetview searching for obstacles. Enter an origin and destination and a film of the trip will be generatered for you.\n Save your route and share it with others!`;
-
+  
   return (
     <Trim>
       <Gradient />
-
       <Banner src={banner} alt={"Banner of cyclists on a busy street"} /> 
-
       <Blurb>{text}</Blurb>
     </Trim>
   );

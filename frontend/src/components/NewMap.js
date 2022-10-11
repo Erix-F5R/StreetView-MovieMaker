@@ -4,6 +4,8 @@ import { useContext, useEffect, useState } from "react";
 import { MapFlowContext } from "../MapFlow/MapFlowContext";
 import MapPrint from "../MapFlow/MapPrint";
 
+//New Trip embedded map
+//Updates after a user specifies the path
 const NewMap = () => {
   const [box, setBox] = useState([
     [45.67223, -74.08959],

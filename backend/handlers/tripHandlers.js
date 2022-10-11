@@ -9,12 +9,7 @@ const { MONGO_URI } = process.env;
 const options = { useNewUrlParser: true, useUnifiedTopology: true };
 const { v4: uuidv4 } = require("uuid");
 
-//200 OK
-//201 Created
-//400 Bad request
-//404 not found
-//500 server error
-
+//Add a new trip
 const postTrip = async (req, res) => {
   const client = new MongoClient(MONGO_URI, options);
   const trip = req.body;
@@ -28,11 +23,14 @@ const postTrip = async (req, res) => {
       .collection("trips")
       .findOne({ imgName: req.body.imgName });
 
+    //Make sure it doens't already exist. I was having trouble with posting twice but I sorted it out
+    //left this in as an assurance
     if (!exists) {
       const result = await db
         .collection("trips")
         .insertOne({ _id: tripId, ...trip, favoritedBy: [] });
 
+      //return tripId to navigate to tripdetails
       res.status(201).json({ status: 201, tripId: tripId });
     } else {
       res.status(500).json({ status: 500, message: "Trip exists" });
@@ -56,6 +54,7 @@ const getAllTrips = async (req, res) => {
   }
 };
 
+//Logged in user's trips so they can delete, if they want
 const getTripsByAuthor = async (req, res) => {
   const client = new MongoClient(MONGO_URI, options);
   const author = req.params.authorId;
@@ -69,11 +68,12 @@ const getTripsByAuthor = async (req, res) => {
       .toArray();
     res.status(200).json({ status: 200, data: result });
   } catch (e) {
-    console.log(e)
+    console.log(e);
     res.status(500).json({ status: 500, Error: e });
   }
 };
 
+//Logged in users favorite trips
 const getFavoriteTrips = async (req, res) => {
   const client = new MongoClient(MONGO_URI, options);
   const user = req.params.userId;
@@ -90,6 +90,7 @@ const getFavoriteTrips = async (req, res) => {
   }
 };
 
+//Favorite/unfavorite
 const patchFavorite = async (req, res) => {
   const client = new MongoClient(MONGO_URI, options);
   const user = req.body.user;
@@ -102,12 +103,12 @@ const patchFavorite = async (req, res) => {
       .collection("trips")
       .findOne({ _id: trip, favoritedBy: user });
 
-      let favorite;
+    let favorite;
     if (result) {
       //unfavorite
       favorite = await db
-      .collection("trips")
-      .updateOne({ _id: trip }, { $pull: { favoritedBy: user } });
+        .collection("trips")
+        .updateOne({ _id: trip }, { $pull: { favoritedBy: user } });
     } else {
       //favorite
       favorite = await db
@@ -161,7 +162,7 @@ const deleteTrip = async (req, res) => {
   }
 
   client.close();
-}
+};
 
 module.exports = {
   postTrip,

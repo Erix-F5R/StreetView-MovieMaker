@@ -5,14 +5,20 @@ import { CurrentUserContext } from "../components/CurrentUserContext";
 import TripTile from "../components/TripTile";
 import Loading from "../components/Loading";
 
+//Logged in users page, shows their favorites
 const Profile = () => {
+
+  //Current user pics weren't imported form auth0
   const userPic = useAuth0().user.picture;
+
   //I'm not using a reducer because for the most part my states aren't dependant on one another
   const user = useContext(CurrentUserContext);
+
   const [myTrips, setMyTrips] = useState();
   const [favoriteTrips, setFavoriteTrips] = useState();
   const [tabValue, setTabValue] = useState(0);
 
+  //Receive user then grab trips
   useEffect(() => {
     if (user._id) {
       fetch(`/trips-by-author/${user._id}`)

@@ -2,6 +2,9 @@ import React from "react";
 import GooglePlacesAutocomplete from "react-google-places-autocomplete";
 import styled from "styled-components";
 
+//Google auto complete feature
+//It is built using the react-select library. 
+//The styling was very difficult, not very good documentation
 const GoogleInput = ({ handleChange, pHolder }) => {
   const KEY = process.env.REACT_APP_GOOGLE_KEY;
   return (

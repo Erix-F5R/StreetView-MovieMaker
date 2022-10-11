@@ -1,7 +1,7 @@
 import { createContext, useReducer, useContext} from "react";
 import { reducer, initialState } from "./MapFlowReducer";
 
-
+//Reducer dispatches
 export const MapFlowContext = createContext();
 
 export const MapFlowProvider = ({ children }) => {

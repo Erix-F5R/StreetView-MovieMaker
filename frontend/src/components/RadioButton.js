@@ -1,5 +1,6 @@
 import styled from "styled-components";
 
+//All trips filter radio button styling, mostly
 const RadioButton = ({ category, option, filterValue, handleClick }) => {
   return (
     <Wrapper>

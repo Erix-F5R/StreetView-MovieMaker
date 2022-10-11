@@ -3,6 +3,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 export const CurrentUserContext = createContext();
 
+//Grabs the current user from Auth0 then matches them in the DB
 export const CurrentUserProvider = ({ children }) => {
   const [userContext, setUserContext] = useState();
   const { user } = useAuth0();

@@ -1,6 +1,6 @@
 //This reducer manages which of the two modals is open
 //Along with Pause/Play/Reset
-//and collects form data
+//it also collects form data
 export const initialState = {
   openVideo: false,
   frame: 0,

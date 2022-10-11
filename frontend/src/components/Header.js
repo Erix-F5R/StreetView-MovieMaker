@@ -5,9 +5,10 @@ import SignupButton from "../auth/SignupButton";
 import { useContext } from "react";
 import { CurrentUserContext } from "./CurrentUserContext";
 
+//Website header
 const Header = () => {
-  const user = useContext(CurrentUserContext);
 
+  const user = useContext(CurrentUserContext);
 
   return (
     <Wrapper>

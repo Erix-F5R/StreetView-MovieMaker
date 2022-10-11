@@ -6,15 +6,15 @@ import TripTile from "../components/TripTile";
 import DefaultPic from "../assets/defaultPic.jpg"
 import Loading from "../components/Loading";
 
+//Generic non logged in user. Doesn't show their favorites
 const User = () => {
 
   //I'm not using a reducer because for the most part my states aren't dependant on one another
-
   const [user, setUser] = useState();
   const [userTrips, setUserTrips] = useState();
   const { userId} = useParams();
 
-  console.log(user)
+
   //Get user
   useEffect(() => {    
       fetch(`/user/${userId}`)

@@ -1,8 +1,9 @@
 import { MapContainer, TileLayer, Polyline } from "react-leaflet";
 import styled from "styled-components";
-import { useContext, useEffect, useState } from "react";
-import { MapFlowContext } from "../MapFlow/MapFlowContext";
+import {useEffect, useState } from "react";
 
+
+//Embedded map/path for trip detail
 
 const TripDetailMap = ({bbox, pathBearing}) => {
   const [box, setBox] = useState();
@@ -11,8 +12,7 @@ const TripDetailMap = ({bbox, pathBearing}) => {
 
   useEffect(() => {
       setBox(bbox);
-      setPolyLine(pathBearing.map((step) => [step.lat, step.lng]));
-    
+      setPolyLine(pathBearing.map((step) => [step.lat, step.lng]));    
   }, []);
 
   return (

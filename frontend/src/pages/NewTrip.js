@@ -1,4 +1,4 @@
-import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
+import { withAuthenticationRequired } from "@auth0/auth0-react";
 import { useContext, useEffect, useReducer } from "react";
 import OriginDestInput from "../components/OriginDestInput";
 import GeoCode from "../MapFlow/GeoCode";
@@ -11,7 +11,10 @@ import ModalTrip from "../modal/ModalTrip";
 import { CurrentUserContext } from "../components/CurrentUserContext";
 import { useNavigate } from "react-router-dom";
 
+//New trip page, loads the map and inputs, and connects the modal
 const NewTrip = () => {
+
+  //Wow 2 reducers... probably time to learn redux
   const {
     state: {
       origin,
@@ -36,6 +39,7 @@ const NewTrip = () => {
   const user = useContext(CurrentUserContext);
   const nav = useNavigate();
 
+  //Handles the data as the user flows through the map creation process
   useEffect(() => {
     switch (status) {
       case "origin-dest-received": {
@@ -75,6 +79,7 @@ const NewTrip = () => {
           }),
         })
           .then((res) => res.json())
+          //upon completion send the user to the trip detail page
           .then((data) => nav(`/trips/${data.tripId}`));
       }
     }

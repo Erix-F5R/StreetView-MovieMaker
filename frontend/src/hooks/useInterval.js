@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import {  useEffect, useRef } from "react";
 
 //setInterval behaves irregularly with react
 //https://overreacted.io/making-setinterval-declarative-with-react-hooks/
@@ -12,7 +12,7 @@ const useInterval = (callback, delay) => {
 
   // Set up the interval.
   useEffect(() => {
-    function tick() {
+    const tick = () => {
       savedCallback.current();
     }
     if (delay !== null) {

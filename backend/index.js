@@ -26,7 +26,6 @@ express()
   .get("/user/:user", getUser)
 
   // //Trip Collection
-
   .post("/add-trip", postTrip)
   .get("/trips", getAllTrips)
   .get("/trip/:tripId", getTrip)
@@ -34,10 +33,6 @@ express()
   .get("/favorite-trips/:userId", getFavoriteTrips)
   .patch("/favorite-unfavorite", patchFavorite)
   .delete('/delete-trip/:tripId', deleteTrip)
-
-  .get("/test", (req, res) => {
-    res.status(200).json({ message: "test" });
-  })
 
   .listen(port, () => {
     console.log(`Listening on port ${port}`);

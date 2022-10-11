@@ -19,6 +19,8 @@ const ModalTrip = ({ state, dispatch }) => {
 
   const [images, setImages] = useState([]);
 
+  //Grab the Streetview src's
+  //Init the form with prefilled values for the user to edit if needed
   useEffect(() => {
     if (status === "path-received") {
       dispatch({
@@ -38,6 +40,7 @@ const ModalTrip = ({ state, dispatch }) => {
   };
 
   //I added a timeout to the save to give the user some feedback
+  //Make them feel like they did some work by clicking the button
   const handleSave = (event) => {
     event.preventDefault();
     saveTrip(state.formData);

@@ -8,16 +8,16 @@ import User from "./User";
 import Trip from "./Trip";
 import NewTrip from "./NewTrip";
 import AllTrips from "./AllTrips";
-import Test from "../components/GoogleInput"
+import Loading from "../components/Loading";
 import { MapFlowProvider } from "../MapFlow/MapFlowContext";
 
 const App = () => {
-  const { isLoading, user } = useAuth0();
+  const { isLoading } = useAuth0();
 
+  //Prevents flashing on log in
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <Loading/>;
   }
-
 
 
   return (

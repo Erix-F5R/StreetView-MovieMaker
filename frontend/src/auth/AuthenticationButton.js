@@ -6,6 +6,7 @@ import LogoutButton from './LogoutButton';
 
 import { useAuth0 } from '@auth0/auth0-react';
 
+//Switches between Log in and Log out
 const AuthenticationButton = () => {
   const { isAuthenticated } = useAuth0();
 

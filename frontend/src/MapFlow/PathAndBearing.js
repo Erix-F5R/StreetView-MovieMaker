@@ -2,6 +2,7 @@
 //And returns the Path along with the bearing (direction facing the next stop)
 
 //Utility function to calculate the bearing
+//Bearing is the angle from 0-360 you need to face from point1 to see point2
 const getBearing = (lat1, lng1, lat2, lng2) => {
   const degToRad = (deg) => {
     return (deg * Math.PI) / 180;
@@ -55,13 +56,14 @@ const PathAndBearing = async (geoOrigin, geoDestination) => {
     return curr;
   });
 
+  //The final element has no second point to look towards
   const lastElement = {
     lat: directions[directions.length - 1][1],
     lng: directions[directions.length - 1][0],
     bearing: finalAngle,
   };
 
-  //unpack bbox 
+  //unpack bounding box, the bounds to render the map
   const bbox = geoResp.features[0].bbox;
   const returnBbox = [[bbox[1],bbox[0]],[bbox[3],bbox[2]]]
 

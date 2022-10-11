@@ -1,3 +1,5 @@
+//This function builds the Google streetview src's
+//In deployment user's would need to provide their own API key
 const StreetViewBuilder = (pathArray) => {
 
     //Limit to protect api calls

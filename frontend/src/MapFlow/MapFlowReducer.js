@@ -1,6 +1,6 @@
 //This reducer manages the states involed in the data flow from user input to final map view
 import { v4 as uuidv4 } from "uuid";
-import { CurrentUserContext } from "../components/CurrentUserContext";
+
 
 export const initialState = {
   status: "idle",
@@ -61,6 +61,7 @@ export const reducer = (state, action) => {
       };
     }
 
+    //save the map
     case "save": {
       return {
         ...state,

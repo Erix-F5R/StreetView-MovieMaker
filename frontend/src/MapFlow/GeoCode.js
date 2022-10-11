@@ -2,7 +2,7 @@ import Geocode from "react-geocode";
 
 //This function received a plain text origin/destination and returns them as lat/lng
 //Calls the OpenRoutingService Geocoding API
-// Includes label info
+// Includes suggested label info, sometimes wildly inaccurate, but the user is given a chance to correct
 const GeoCode = async (origin, destination) => {
 
     //ORS PROVIDES Locality lable info, but unreliable for addresses

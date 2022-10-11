@@ -8,7 +8,11 @@ import RadioButton from "../components/RadioButton";
 
 const AllTrips = () => {
   const [trips, setTrips] = useState([]);
+
+  //Criteria to filter all trips
   const [filter, setFilter] = useState({ key: undefined, value: undefined });
+
+  //The different options to filter on
   const [localities, setLocalities] = useState([]);
   const [countries, setCountries] = useState([]);
   const [difficulties, setDifficulties] = useState([
@@ -17,9 +21,11 @@ const AllTrips = () => {
     "intermediate",
     "dangerous",
   ]);
+
+  //If the user arrived by clicking a filter on a tile
   const { filterParam } = useParams();
 
-  //Grab all trips and
+  //Grab all trips and extract filter options
   useEffect(() => {
     fetch("/trips")
       .then((res) => res.json())
@@ -43,7 +49,7 @@ const AllTrips = () => {
     }
   }, []);
 
-  //This alernative filter update reacts to clicking filters in the tiles
+  //This alernative filter update reacts to clicking filters in the tiles on this page
   useEffect(() => {
     if (filterParam) {
       const paramArray = filterParam.split("=");
@@ -51,6 +57,7 @@ const AllTrips = () => {
     }
   }, [filterParam]);
 
+  //Radio click handler
   const handleClick = (event) => {
     console.log(event.target.value);
     const paramArray = event.target.value.split("=");

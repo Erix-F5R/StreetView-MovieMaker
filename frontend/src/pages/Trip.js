@@ -4,21 +4,25 @@ import styled from "styled-components";
 import TripDetailMap from "../components/TripDetailMap";
 import Loading from "../components/Loading";
 
+//Trip detail page
 const Trip = () => {
   const { tripId } = useParams();
   const [trip, setTrip] = useState(null);
   const nav = useNavigate();
 
+  //applies a filter on Alltrips.js
   const navToAllTrips = (ev, key, value) => {
     ev.preventDefault();
     nav(`/all-trips/${key}=${value}`);
   };
 
+  //Filter on profile
   const navToProfile = (ev) => {
     ev.preventDefault();
     nav(`/user/${trip.author}`);
   };
 
+  //Load the trip
   useEffect(() => {
     fetch(`/trip/${tripId}`)
       .then((res) => res.json())

@@ -1,7 +1,7 @@
 //Global styling component
 
 import { createGlobalStyle } from "styled-components";
-
+//Color theme and style reset
 export default createGlobalStyle`
 :root {
 --color-main: #68B684;
