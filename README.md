@@ -9,4 +9,6 @@ API's used include: Google Static StreetView, Google Places Autocomplete, Google
 ---
 ## Map Flow
 
-<img src='readme/MapFlow.gif' style='width:50%' />
+<img src='readme/MapFlow.gif' style='width:100%' />
+
+The map flow takes users from origin/destination input to saving the trip. 
