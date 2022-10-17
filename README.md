@@ -9,7 +9,7 @@ API's used include: Google Static StreetView, Google Places Autocomplete, Google
 ---
 ## Map Flow
 ### The map flow takes users from origin/destination input to saving the trip. 
-<img src='readme/MapFlow.gif' style='width:100%' />
+<img src='readme/MapVideo.gif' style='width:100%' />
 
 Locations are geocoded(lat/long) then posted to Openroutingservice to generate a bike trip. The trip is rendered on a Leaflet map. A modal popup displays a video of the route with options to pause,play and reset the video. Users can make notes and rate the trip, as well as edit the auto suggested location and title. Upon Saving the trip is added to that users profile and displays site wide for all users.
 
