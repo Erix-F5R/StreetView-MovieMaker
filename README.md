@@ -9,4 +9,4 @@ API's used include: Google Static StreetView, Google Places Autocomplete, Google
 ---
 ## Map Flow
 
-<img src='/readme/Mapflow.gif' style='width:50%' />
+<img src='readme/Mapflow.gif' style='width:50%' />
